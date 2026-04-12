@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Hero 3D Particle System
-   Three.js animated particle globe for landing page
-   ============================================================ */
 
 const Hero3D = {
   scene: null,
@@ -24,16 +20,16 @@ const Hero3D = {
 
     this.clock = new THREE.Clock();
 
-    // Scene
+
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.FogExp2(0x000000, 0.0008);
 
-    // Camera
+
     const aspect = window.innerWidth / window.innerHeight;
     this.camera = new THREE.PerspectiveCamera(60, aspect, 1, 2000);
     this.camera.position.z = 500;
 
-    // Renderer
+
     this.renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
@@ -44,11 +40,11 @@ const Hero3D = {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setClearColor(0x000000, 0);
 
-    // Create particles
+
     this.createParticleGlobe();
     this.createAmbientParticles();
 
-    // Events
+
     this._onMouseMove = (e) => {
       this.mouse.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
       this.mouse.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
@@ -58,7 +54,7 @@ const Hero3D = {
     window.addEventListener('mousemove', this._onMouseMove, { passive: true });
     window.addEventListener('resize', this._onResize, { passive: true });
 
-    // Start animation
+
     this.animate();
     this.initialized = true;
   },
@@ -77,7 +73,7 @@ const Hero3D = {
     const white = new THREE.Color(0xffffff);
 
     for (let i = 0; i < count; i++) {
-      // Fibonacci sphere distribution for even spacing
+      // fibonacci sphere for even distribution
       const phi = Math.acos(1 - 2 * (i + 0.5) / count);
       const theta = Math.PI * (1 + Math.sqrt(5)) * i;
 
@@ -86,7 +82,7 @@ const Hero3D = {
       positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       positions[i * 3 + 2] = r * Math.cos(phi);
 
-      // Color variation
+
       const colorChoice = Math.random();
       let color;
       if (colorChoice < 0.4) {
@@ -110,7 +106,7 @@ const Hero3D = {
     geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
     geometry.setAttribute('phase', new THREE.BufferAttribute(phases, 1));
 
-    // Custom shader material for soft glow particles
+
     const material = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },

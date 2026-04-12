@@ -1,12 +1,7 @@
-/* ============================================================
-   ImpactBridge — Volunteer Management Module
-   Volunteer registration, matching, and management
-   ============================================================ */
 
 const VolunteerManager = {
   volunteers: [],
 
-  // ---- Demo Data: Realistic Indian Volunteers ----
   generateDemoVolunteers() {
     return [
       {
@@ -226,7 +221,7 @@ const VolunteerManager = {
     Utils.saveToStorage('volunteers', this.volunteers);
   },
 
-  // ---- CRUD ----
+
   getAll(filter = 'all') {
     if (filter === 'available') return this.volunteers.filter(v => v.status === 'available');
     if (filter === 'deployed') return this.volunteers.filter(v => v.status === 'deployed');
@@ -261,7 +256,7 @@ const VolunteerManager = {
     return newVol;
   },
 
-  // ---- Stats ----
+
   getStats() {
     const total = this.volunteers.length;
     const available = this.volunteers.filter(v => v.status === 'available').length;
@@ -273,7 +268,7 @@ const VolunteerManager = {
     return { total, available, deployed, totalHours, totalMissions, avgRating: avgRating.toFixed(1) };
   },
 
-  // ---- AI Matching ----
+
   matchVolunteersToNeed(needId) {
     const need = NeedsManager.getNeedById(needId);
     if (!need) return [];
@@ -318,7 +313,6 @@ const VolunteerManager = {
     .slice(0, 5);
   },
 
-  // ---- UI: Modals ----
   openRegisterModal() {
     ImpactBridge.ui.openModal('modal-register-volunteer');
   },
@@ -372,7 +366,7 @@ const VolunteerManager = {
     resultsContainer.classList.remove('hidden');
     resultsList.innerHTML = '<div class="flex-center" style="padding:24px"><div class="loading-spinner"></div></div>';
 
-    // Simulate AI processing
+
     await Utils.sleep(1500);
 
     const matches = this.matchVolunteersToNeed(needId);
@@ -407,7 +401,6 @@ const VolunteerManager = {
     ActivityLog.add('match', `AI matched ${matches.length} volunteers to "${need.title.substring(0, 40)}"`);
   },
 
-  // ---- UI: Render Volunteers ----
   renderVolunteersGrid(filter = 'all', searchQuery = '') {
     const grid = document.getElementById('volunteers-grid');
     let vols = this.getAll(filter);
@@ -451,10 +444,10 @@ const VolunteerManager = {
       </div>
     `).join('');
 
-    // Stats
+
     this.renderVolunteerStats();
 
-    // Setup tabs
+
     this.setupVolunteerTabs();
     this.setupVolunteerSearch();
   },

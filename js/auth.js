@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Authentication Module
-   Handles Google Sign-in + Demo user
-   ============================================================ */
 
 const Auth = {
   currentUser: null,
@@ -20,7 +16,7 @@ const Auth = {
         }
       });
     } else {
-      // Demo user
+
       this.currentUser = {
         uid: 'demo-user-001',
         name: 'Demo User',

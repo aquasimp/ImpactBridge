@@ -1,13 +1,8 @@
-/* ============================================================
-   ImpactBridge — Need Management Module
-   CRUD operations for community needs + demo data
-   ============================================================ */
 
 const NeedsManager = {
   needs: [],
   currentFilter: 'all',
 
-  // ---- Demo Data: Realistic Indian Community Needs ----
   generateDemoNeeds() {
     return [
       {
@@ -218,13 +213,13 @@ const NeedsManager = {
   },
 
   init() {
-    // Load from storage or generate demo data
+
     const stored = Utils.loadFromStorage('needs');
     this.needs = stored || this.generateDemoNeeds();
     Utils.saveToStorage('needs', this.needs);
   },
 
-  // ---- CRUD ----
+
   getAllNeeds() {
     return this.needs.sort((a, b) => {
       const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
@@ -272,7 +267,7 @@ const NeedsManager = {
     return null;
   },
 
-  // ---- Stats ----
+
   getStats() {
     const total = this.needs.length;
     const critical = this.needs.filter(n => n.priority === 'critical').length;
@@ -293,7 +288,6 @@ const NeedsManager = {
     return breakdown;
   },
 
-  // ---- UI: Submit Need ----
   openSubmitModal() {
     ImpactBridge.ui.openModal('modal-submit-need');
   },
@@ -324,12 +318,11 @@ const NeedsManager = {
     ImpactBridge.ui.showToast('success', 'Need Submitted', 'Community need has been recorded and prioritized.');
     ActivityLog.add('need', `New ${need.priority} need: "${need.title}" in ${need.location}`);
 
-    // Refresh views
+
     if (ImpactBridge.currentView === 'needs') this.renderNeedsGrid();
     if (ImpactBridge.currentView === 'dashboard') ImpactBridge.dashboard.render();
   },
 
-  // ---- UI: Render Needs Grid ----
   renderNeedsGrid() {
     const grid = document.getElementById('needs-grid');
     const needs = this.getNeedsByCategory(this.currentFilter);
@@ -395,7 +388,7 @@ const NeedsManager = {
       `;
     }).join('');
 
-    // Setup filter chips
+
     this.setupFilters();
   },
 
@@ -423,7 +416,6 @@ const NeedsManager = {
     ImpactBridge.ui.showToast('info', `${cat.icon} ${need.title}`, `${need.location} — ${pri.label} priority — ${need.affected} people affected`);
   },
 
-  // ---- Render urgent needs for dashboard sidebar ----
   renderUrgentNeedsList() {
     const container = document.getElementById('urgent-needs-list');
     if (!container) return;

@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Dashboard Module
-   ALL stats computed from real data. Zero hardcoded numbers.
-   ============================================================ */
 
 const Dashboard = {
   charts: {},
@@ -73,7 +69,7 @@ const Dashboard = {
     gradient2.addColorStop(0, 'rgba(6, 182, 212, 0.2)');
     gradient2.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
 
-    // Generate chart data from actual need creation timestamps
+
     const chartData = this.computeNeedsOverTime('week');
     const defaults = Utils.getChartDefaults();
 
@@ -133,7 +129,7 @@ const Dashboard = {
       }
     });
 
-    // Tab switching
+
     document.querySelectorAll('[data-period]').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('[data-period]').forEach(b => b.classList.remove('active'));
@@ -147,7 +143,6 @@ const Dashboard = {
     });
   },
 
-  // Compute chart data from actual need timestamps
   computeNeedsOverTime(period) {
     const needs = NeedsManager.getAllNeeds();
     const now = Date.now();

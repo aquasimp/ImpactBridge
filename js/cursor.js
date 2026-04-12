@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Custom Cursor
-   Dot + ring cursor with magnetic pull on interactive elements
-   ============================================================ */
 
 const CustomCursor = {
   dot: null,

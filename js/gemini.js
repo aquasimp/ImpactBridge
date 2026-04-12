@@ -1,15 +1,10 @@
-/* ============================================================
-   ImpactBridge — Gemini AI Integration
-   REAL Gemini API — feeds actual platform data as context.
-   No fake demo responses. Uses REAL data from the platform.
-   ============================================================ */
 
 const GeminiAI = {
   API_KEY: '',
   API_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
   chatOpen: false,
 
-  // Build real system context from actual platform data
+
   buildSystemContext() {
     const needs = NeedsManager.getAllNeeds();
     const vols = VolunteerManager.getAll();
@@ -80,12 +75,11 @@ RULES:
       }
     }
 
-    // No API key — build response from REAL platform data (not canned text)
+
     await Utils.sleep(600 + Math.random() * 800);
     return this.buildLocalResponse(prompt);
   },
 
-  // When no API key: generate responses from ACTUAL platform data
   buildLocalResponse(prompt) {
     const lower = prompt.toLowerCase();
     const needs = NeedsManager.getAllNeeds();
@@ -93,7 +87,7 @@ RULES:
     const needStats = NeedsManager.getStats();
     const volStats = VolunteerManager.getStats();
 
-    // VOLUNTEER MATCHING — uses real volunteer data
+
     if (lower.includes('volunteer') && (lower.includes('find') || lower.includes('match') || lower.includes('need'))) {
       const available = vols.filter(v => v.status === 'available');
       const topVols = available.slice(0, 3);
@@ -104,7 +98,7 @@ RULES:
       return `## 🎯 Volunteer Matching Results\n\nFound **${available.length} available volunteers** in the platform. Top matches:\n\n${volList}\n\n**Recommendation:** Based on skills and experience, ${topVols[0]?.name || 'the top volunteer'} is the strongest match for immediate deployment.\n\n*Add a Gemini API key for AI-powered skill matching with scoring.*`;
     }
 
-    // URGENT NEEDS — uses real need data
+
     if (lower.includes('urgent') || lower.includes('priority') || lower.includes('critical')) {
       const critical = needs.filter(n => n.priority === 'critical');
       const high = needs.filter(n => n.priority === 'high');
@@ -118,7 +112,7 @@ RULES:
       return `## 🚨 Current Urgent Needs\n\n**${critical.length} critical** and **${high.length} high priority** needs across the platform.\n\n### Critical Needs\n${critList}\n\n### High Priority\n${highList}\n\n**Gap Analysis:** ${needStats.totalVolunteersNeeded - needStats.totalVolunteersAssigned} more volunteers needed across all active needs.`;
     }
 
-    // IMPACT / REPORT — computed from real stats
+
     if (lower.includes('report') || lower.includes('impact') || lower.includes('summary') || lower.includes('analys')) {
       const categories = NeedsManager.getCategoryBreakdown();
       const catLines = Object.entries(categories).map(([cat, count]) =>
@@ -132,21 +126,21 @@ RULES:
       return `## 📊 Platform Impact Summary\n**Generated from live platform data**\n\n### Key Metrics\n- **${needStats.total}** active community needs tracked\n- **${needStats.critical}** critical needs requiring immediate action\n- **${volStats.total}** registered volunteers\n- **${volStats.deployed}** currently deployed in the field\n- **${Utils.formatNumber(volStats.totalHours)}** total hours contributed\n- **${volStats.totalMissions}** missions completed\n- **${Utils.formatNumber(needStats.totalAffected)}** people in affected communities\n\n### Volunteer Fulfillment: ${fulfillment}%\n${needStats.totalVolunteersAssigned} of ${needStats.totalVolunteersNeeded} volunteer slots filled.\n\n### Needs by Category\n| Category | Count |\n|----------|-------|\n${catLines}\n\n### Gaps Identified\n- **${needStats.totalVolunteersNeeded - needStats.totalVolunteersAssigned} volunteer slots** remain unfilled\n- **${needStats.critical} critical needs** still active\n- Average volunteer rating: **${volStats.avgRating}/5**\n\n*For a full AI-generated report with recommendations, add your Gemini API key.*`;
     }
 
-    // PARSE / EXTRACT — explain what will happen with API key
+
     if (lower.includes('parse') || lower.includes('extract') || lower.includes('field') || lower.includes('survey')) {
       return `## 📋 Field Report Parser\n\nTo parse a field report, use the **"AI Parse Report"** button on the **Needs** page. Paste your report text and I'll extract:\n\n- **Title** and **Category** classification\n- **Priority Level** assessment\n- **Location** and geo-coordinates\n- **Affected population** count\n- **Specific requirements** broken down\n- **Urgency Score** (0-10)\n\nThis feature works best with a **Gemini API key** for accurate NLP extraction.\n\n**Current platform status:** ${needStats.total} needs tracked, ${needStats.critical} critical.`;
     }
 
-    // HELLO / HELP
+
     if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey') || lower.includes('help')) {
       return `Hello! 👋 I'm ImpactBridge AI. I have access to **${needStats.total} active needs** and **${volStats.total} volunteers** on this platform.\n\nHere's what I can do:\n\n• **"Show urgent needs"** — I'll list critical needs from the platform\n• **"Find available volunteers"** — I'll search the volunteer database\n• **"Generate impact report"** — I'll analyze platform metrics\n• **"What are the biggest gaps?"** — I'll identify where help is needed most\n\n💡 **Tip:** Add a Gemini API key in \`js/gemini.js\` for full AI-powered responses.\n\nWhat would you like to know?`;
     }
 
-    // DEFAULT — always use real stats
+
     return `Based on the current platform data:\n\n**Active Needs:** ${needStats.total} (${needStats.critical} critical)\n**Volunteers:** ${volStats.total} registered (${volStats.available} available, ${volStats.deployed} deployed)\n**People Affected:** ${Utils.formatNumber(needStats.totalAffected)}\n**Hours Contributed:** ${Utils.formatNumber(volStats.totalHours)}\n\nTry asking:\n- "Show me urgent needs"\n- "Find volunteers for medical help"\n- "Generate an impact report"\n\n*For advanced AI responses, set your Gemini API key in js/gemini.js*`;
   },
 
-  // ---- Chat Interface ----
+
   toggleChat() {
     this.chatOpen = !this.chatOpen;
     document.getElementById('ai-chat-panel').classList.toggle('open', this.chatOpen);
@@ -173,7 +167,7 @@ RULES:
 
     const messagesContainer = document.getElementById('ai-chat-messages');
 
-    // User message
+
     const userMsg = document.createElement('div');
     userMsg.className = 'ai-message user';
     userMsg.innerHTML = `<div class="ai-message-bubble">${this.escapeHtml(message)}</div>`;
@@ -181,17 +175,17 @@ RULES:
     input.value = '';
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-    // Typing indicator
+
     const typing = document.createElement('div');
     typing.className = 'ai-message assistant';
     typing.innerHTML = `<div class="ai-message-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
     messagesContainer.appendChild(typing);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-    // Get AI response
+
     const response = await this.callGemini(message);
 
-    // Remove typing, add response
+
     typing.remove();
     const aiMsg = document.createElement('div');
     aiMsg.className = 'ai-message assistant';
@@ -199,7 +193,7 @@ RULES:
     messagesContainer.appendChild(aiMsg);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-    // Log to activity feed
+
     ActivityLog.add('ai', `AI query: "${message.substring(0, 40)}${message.length > 40 ? '...' : ''}"`);
   },
 

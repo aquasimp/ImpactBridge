@@ -1,8 +1,3 @@
-/* ============================================================
-   ImpactBridge — Map Module (Leaflet.js)
-   Professional interactive map with dark theme tiles,
-   custom markers, popups, heatmap, and clustering
-   ============================================================ */
 
 const MapModule = {
   map: null,
@@ -15,7 +10,7 @@ const MapModule = {
   initialized: false,
 
   init() {
-    // Destroy previous map if it exists (SPA re-navigation)
+
     if (this.map) {
       this.map.remove();
       this.map = null;
@@ -32,15 +27,15 @@ const MapModule = {
     const container = document.getElementById('map-canvas');
     if (!container) return;
 
-    // Clear previous content
+
     container.innerHTML = '';
     container.style.display = 'block';
 
-    // Show legend
+
     const legend = document.getElementById('map-legend');
     if (legend) legend.style.display = 'block';
 
-    // Initialize Leaflet map centered on India
+
     this.map = L.map(container, {
       center: [22.5, 80.5],
       zoom: 5,
@@ -50,33 +45,32 @@ const MapModule = {
       attributionControl: true
     });
 
-    // Add zoom control to top-right
+
     L.control.zoom({ position: 'topright' }).addTo(this.map);
 
-    // Dark CartoDB tile layer — looks stunning
+
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
       subdomains: 'abcd',
       maxZoom: 19
     }).addTo(this.map);
 
-    // Create layer groups
+
     this.markersLayerGroup = L.layerGroup().addTo(this.map);
     this.volunteerLayerGroup = L.layerGroup().addTo(this.map);
 
-    // Add need markers
+
     this.addNeedMarkers();
 
-    // Add volunteer markers
+
     this.addVolunteerMarkers();
 
-    // Prepare heatmap layer (not added yet)
+
     this.prepareHeatmap();
 
     this.initialized = true;
   },
 
-  // ---- Custom marker icons using CSS-colored SVGs ----
   createNeedIcon(priority) {
     const colors = {
       critical: '#ef4444',
@@ -118,7 +112,6 @@ const MapModule = {
     });
   },
 
-  // ---- Add Need Markers ----
   addNeedMarkers() {
     const needs = NeedsManager.getAllNeeds();
 
@@ -166,7 +159,6 @@ const MapModule = {
     });
   },
 
-  // ---- Add Volunteer Markers ----
   addVolunteerMarkers() {
     const volunteers = VolunteerManager.getAll();
 
@@ -203,7 +195,6 @@ const MapModule = {
     });
   },
 
-  // ---- Heatmap ----
   prepareHeatmap() {
     const needs = NeedsManager.getAllNeeds();
     const heatData = [];
@@ -211,13 +202,13 @@ const MapModule = {
     needs.forEach(need => {
       if (!need.lat || !need.lng) return;
 
-      // Intensity based on priority and affected count
+
       const priorityWeight = { critical: 1.0, high: 0.7, medium: 0.4, low: 0.2 };
       const weight = (priorityWeight[need.priority] || 0.3) * Math.min(need.affected / 1000, 3);
 
       heatData.push([need.lat, need.lng, weight]);
 
-      // Add some surrounding points for bigger glow on critical/high
+
       if (need.priority === 'critical' || need.priority === 'high') {
         for (let i = 0; i < 5; i++) {
           heatData.push([
@@ -255,7 +246,6 @@ const MapModule = {
     }
   },
 
-  // ---- Map Stats Sidebar ----
   renderMapStats() {
     const container = document.getElementById('map-stats');
     if (!container) return;
@@ -318,14 +308,13 @@ const MapModule = {
     }).join('');
   },
 
-  // ---- Fly to a specific need on the map ----
   flyToNeed(needId) {
     const need = NeedsManager.getNeedById(needId);
     if (!need || !need.lat || !need.lng || !this.map) return;
 
     this.map.flyTo([need.lat, need.lng], 10, { duration: 1.5 });
 
-    // Find and open the marker popup
+
     this.needMarkers.forEach(marker => {
       const latlng = marker.getLatLng();
       if (Math.abs(latlng.lat - need.lat) < 0.01 && Math.abs(latlng.lng - need.lng) < 0.01) {
@@ -337,7 +326,7 @@ const MapModule = {
   setupMapControls() {
     const heatmapBtn = document.getElementById('map-toggle-heatmap');
     if (heatmapBtn) {
-      // Remove old listeners by cloning
+
       const newBtn = heatmapBtn.cloneNode(true);
       heatmapBtn.parentNode.replaceChild(newBtn, heatmapBtn);
 

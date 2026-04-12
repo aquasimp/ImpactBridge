@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Analytics Module
-   ALL metrics computed from real data. No hardcoded numbers.
-   ============================================================ */
 
 const Analytics = {
   charts: {},
@@ -56,7 +52,6 @@ const Analytics = {
     `;
   },
 
-  // Chart 1: Needs per category with volunteer fulfillment
   renderCategoryNeedsChart() {
     const canvas = document.getElementById('deployment-chart');
     if (!canvas) return;
@@ -118,7 +113,6 @@ const Analytics = {
     });
   },
 
-  // Chart 2: Priority distribution
   renderVolunteerFulfillmentChart() {
     const canvas = document.getElementById('response-chart');
     if (!canvas) return;
@@ -187,7 +181,6 @@ const Analytics = {
     });
   },
 
-  // Chart 3: Real geographic distribution from actual need locations
   renderRegionChart() {
     const canvas = document.getElementById('region-chart');
     if (!canvas) return;
@@ -196,7 +189,7 @@ const Analytics = {
 
     const needs = NeedsManager.getAllNeeds();
     
-    // Extract state from location (e.g., "Silchar, Assam" → "Assam")
+    // extract state from "City, State" format
     const stateCount = {};
     const stateAffected = {};
     needs.forEach(n => {
@@ -252,7 +245,6 @@ const Analytics = {
     });
   },
 
-  // Chart 4: Skill coverage — computed from actual volunteer skills vs need categories
   renderSkillsChart() {
     const canvas = document.getElementById('skills-chart');
     if (!canvas) return;
@@ -261,7 +253,7 @@ const Analytics = {
 
     const vols = VolunteerManager.getAll();
 
-    // Count volunteers per skill area
+
     const skillAreas = {};
     vols.forEach(v => {
       v.skills.forEach(skill => {
@@ -269,7 +261,7 @@ const Analytics = {
       });
     });
 
-    // Get top 8 skills
+
     const topSkills = Object.entries(skillAreas)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 8);
@@ -277,7 +269,7 @@ const Analytics = {
     const skillLabels = topSkills.map(s => s[0]);
     const skillCounts = topSkills.map(s => s[1]);
 
-    // For "demand" — use need categories to estimate skill demand
+
     const needs = NeedsManager.getAllNeeds();
     const catSkillDemand = {
       'Medical': needs.filter(n => n.category === 'healthcare').length,

@@ -1,9 +1,6 @@
-/* ============================================================
-   ImpactBridge — Utility Functions
-   ============================================================ */
 
 const Utils = {
-  // ---- Date / Time ----
+
   formatDate(date) {
     return new Date(date).toLocaleDateString('en-IN', {
       year: 'numeric',
@@ -39,7 +36,7 @@ const Utils = {
     return 'just now';
   },
 
-  // ---- Number Formatting ----
+
   formatNumber(num) {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
@@ -50,7 +47,7 @@ const Utils = {
     return new Intl.NumberFormat('en-IN', { notation: 'compact' }).format(num);
   },
 
-  // ---- Random Data Generation ----
+
   randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
@@ -72,7 +69,7 @@ const Utils = {
     return shuffled;
   },
 
-  // ---- UUID ----
+
   generateId() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
       const r = Math.random() * 16 | 0;
@@ -80,7 +77,7 @@ const Utils = {
     });
   },
 
-  // ---- DOM Helpers ----
+
   $(selector) {
     return document.querySelector(selector);
   },
@@ -108,7 +105,7 @@ const Utils = {
     return el;
   },
 
-  // ---- Debounce ----
+
   debounce(fn, delay = 300) {
     let timer;
     return (...args) => {
@@ -117,7 +114,7 @@ const Utils = {
     };
   },
 
-  // ---- Throttle ----
+
   throttle(fn, limit = 100) {
     let inThrottle;
     return (...args) => {
@@ -129,7 +126,7 @@ const Utils = {
     };
   },
 
-  // ---- Animate Counter ----
+
   animateCounter(element, target, duration = 2000, suffix = '') {
     const start = 0;
     const startTime = performance.now();
@@ -137,7 +134,7 @@ const Utils = {
     function update(currentTime) {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
+
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(start + (target - start) * eased);
       
@@ -151,7 +148,7 @@ const Utils = {
     requestAnimationFrame(update);
   },
 
-  // ---- Intersection Observer for Scroll Reveals ----
+
   initScrollReveals() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -182,7 +179,7 @@ const Utils = {
     });
   },
 
-  // ---- Particles Generator ----
+
   generateParticles(container, count = 30) {
     const containerEl = typeof container === 'string' ? document.querySelector(container) : container;
     if (!containerEl) return;
@@ -205,7 +202,7 @@ const Utils = {
     }
   },
 
-  // ---- Ripple Effect ----
+
   initRippleEffects() {
     document.querySelectorAll('.ripple-effect').forEach(el => {
       el.addEventListener('click', function(e) {
@@ -222,7 +219,7 @@ const Utils = {
     });
   },
 
-  // ---- Chart.js Default Config ----
+
   getChartDefaults() {
     return {
       responsive: true,
@@ -260,7 +257,7 @@ const Utils = {
     };
   },
 
-  // ---- Gradient for Charts ----
+
   createChartGradient(ctx, color1, color2) {
     const gradient = ctx.createLinearGradient(0, 0, 0, 280);
     gradient.addColorStop(0, color1);
@@ -268,12 +265,12 @@ const Utils = {
     return gradient;
   },
 
-  // ---- Sleep ----
+
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   },
 
-  // ---- Local Storage ----
+
   saveToStorage(key, data) {
     try {
       localStorage.setItem(`impactbridge_${key}`, JSON.stringify(data));
@@ -291,7 +288,7 @@ const Utils = {
     }
   },
 
-  // ---- Color helpers ----
+
   categoryColors: {
     healthcare: { bg: 'rgba(239,68,68,0.12)', text: '#f87171', icon: '🏥' },
     education: { bg: 'rgba(139,92,246,0.12)', text: '#a78bfa', icon: '📚' },

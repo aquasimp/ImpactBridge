@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Design System
-   Premium glassmorphism UI for Google Solution Challenge 2026
-   ============================================================ */
 
 /* ---- Google Fonts ---- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
@@ -207,9 +203,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-primary);
 }
 
-/* ============================================================
-   NAVIGATION
-   ============================================================ */
+/* NAVIGATION */
 .navbar {
   position: fixed;
   top: 0;
@@ -375,9 +369,7 @@ button { cursor: pointer; font-family: inherit; }
   transition: all var(--transition-fast);
 }
 
-/* ============================================================
-   BUTTONS
-   ============================================================ */
+/* BUTTONS */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -461,9 +453,7 @@ button { cursor: pointer; font-family: inherit; }
   flex-wrap: wrap;
 }
 
-/* ============================================================
-   GLASS CARD
-   ============================================================ */
+/* GLASS CARD */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -508,9 +498,7 @@ button { cursor: pointer; font-family: inherit; }
   box-shadow: var(--shadow-glow);
 }
 
-/* ============================================================
-   STAT CARDS
-   ============================================================ */
+/* STAT CARDS */
 .stat-card {
   display: flex;
   flex-direction: column;
@@ -571,9 +559,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-secondary);
 }
 
-/* ============================================================
-   FORMS
-   ============================================================ */
+/* FORMS */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -638,9 +624,7 @@ button { cursor: pointer; font-family: inherit; }
   gap: var(--space-4);
 }
 
-/* ============================================================
-   BADGES & TAGS
-   ============================================================ */
+/* BADGES & TAGS */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -703,9 +687,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--primary-400);
 }
 
-/* ============================================================
-   PROGRESS BARS
-   ============================================================ */
+/* PROGRESS BARS */
 .progress-bar {
   width: 100%;
   height: 6px;
@@ -738,9 +720,7 @@ button { cursor: pointer; font-family: inherit; }
   100% { transform: translateX(100%); }
 }
 
-/* ============================================================
-   TABLES
-   ============================================================ */
+/* TABLES */
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -772,9 +752,7 @@ button { cursor: pointer; font-family: inherit; }
   background: var(--glass-bg-hover);
 }
 
-/* ============================================================
-   MODALS
-   ============================================================ */
+/* MODALS */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -846,9 +824,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-primary);
 }
 
-/* ============================================================
-   TOAST NOTIFICATIONS
-   ============================================================ */
+/* TOAST NOTIFICATIONS */
 .toast-container {
   position: fixed;
   bottom: var(--space-6);
@@ -922,9 +898,7 @@ button { cursor: pointer; font-family: inherit; }
   }
 }
 
-/* ============================================================
-   LAYOUT UTILITIES
-   ============================================================ */
+/* LAYOUT UTILITIES */
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -1019,9 +993,7 @@ button { cursor: pointer; font-family: inherit; }
   background-clip: text;
 }
 
-/* ============================================================
-   HERO SECTION (Landing Page)
-   ============================================================ */
+/* HERO SECTION (Landing Page) */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -1178,9 +1150,7 @@ button { cursor: pointer; font-family: inherit; }
   margin-top: var(--space-1);
 }
 
-/* ============================================================
-   FEATURES SECTION
-   ============================================================ */
+/* FEATURES SECTION */
 .features-section {
   padding: var(--space-20) var(--space-8);
   position: relative;
@@ -1224,9 +1194,7 @@ button { cursor: pointer; font-family: inherit; }
   line-height: 1.7;
 }
 
-/* ============================================================
-   DASHBOARD LAYOUT
-   ============================================================ */
+/* DASHBOARD LAYOUT */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1263,9 +1231,7 @@ button { cursor: pointer; font-family: inherit; }
   height: 280px;
 }
 
-/* ============================================================
-   NEED CARDS
-   ============================================================ */
+/* NEED CARDS */
 .need-card {
   padding: var(--space-5);
   cursor: pointer;
@@ -1331,9 +1297,7 @@ button { cursor: pointer; font-family: inherit; }
   margin-bottom: var(--space-3);
 }
 
-/* ============================================================
-   VOLUNTEER CARDS
-   ============================================================ */
+/* VOLUNTEER CARDS */
 .volunteer-card {
   padding: var(--space-5);
   display: flex;
@@ -1404,9 +1368,7 @@ button { cursor: pointer; font-family: inherit; }
   letter-spacing: 0.1em;
 }
 
-/* ============================================================
-   AI CHAT
-   ============================================================ */
+/* AI CHAT */
 .ai-chat-panel {
   position: fixed;
   bottom: var(--space-6);
@@ -1554,9 +1516,7 @@ button { cursor: pointer; font-family: inherit; }
 
 .ai-chat-fab.hidden { display: none; }
 
-/* ============================================================
-   MAP CONTAINER (Leaflet.js Dark Theme)
-   ============================================================ */
+/* MAP CONTAINER (Leaflet.js Dark Theme) */
 .map-container {
   width: 100%;
   height: 500px;
@@ -1711,9 +1671,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-primary) !important;
 }
 
-/* ============================================================
-   ANALYTICS CHARTS
-   ============================================================ */
+/* ANALYTICS CHARTS */
 .analytics-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1746,9 +1704,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-tertiary);
 }
 
-/* ============================================================
-   LOADING STATES
-   ============================================================ */
+/* LOADING STATES */
 .skeleton {
   background: linear-gradient(
     90deg,
@@ -1803,9 +1759,7 @@ button { cursor: pointer; font-family: inherit; }
   30% { transform: translateY(-6px); }
 }
 
-/* ============================================================
-   EMPTY STATES
-   ============================================================ */
+/* EMPTY STATES */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -1835,9 +1789,7 @@ button { cursor: pointer; font-family: inherit; }
   margin-bottom: var(--space-6);
 }
 
-/* ============================================================
-   TABS
-   ============================================================ */
+/* TABS */
 .tabs {
   display: flex;
   gap: var(--space-1);
@@ -1867,9 +1819,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-primary);
 }
 
-/* ============================================================
-   VIEW TRANSITIONS
-   ============================================================ */
+/* VIEW TRANSITIONS */
 .view {
   display: none;
   opacity: 0;
@@ -1886,9 +1836,7 @@ button { cursor: pointer; font-family: inherit; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================================
-   SCROLL REVEAL
-   ============================================================ */
+/* SCROLL REVEAL */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -1905,9 +1853,7 @@ button { cursor: pointer; font-family: inherit; }
 .reveal-delay-3 { transition-delay: 300ms; }
 .reveal-delay-4 { transition-delay: 400ms; }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+/* RESPONSIVE */
 @media (max-width: 1200px) {
   .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
   .dashboard-main { grid-template-columns: 1fr; }
@@ -1963,9 +1909,7 @@ button { cursor: pointer; font-family: inherit; }
   .btn-xl { width: 100%; }
 }
 
-/* ============================================================
-   UTILITY: HIDDEN/SHOWN
-   ============================================================ */
+/* UTILITY: HIDDEN/SHOWN */
 .hidden { display: none !important; }
 .sr-only {
   position: absolute;
@@ -1983,9 +1927,7 @@ button { cursor: pointer; font-family: inherit; }
   display: inline-block;
 }
 
-/* ============================================================
-   FILTER BAR
-   ============================================================ */
+/* FILTER BAR */
 .filter-bar {
   display: flex;
   align-items: center;
@@ -2020,9 +1962,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--primary-400);
 }
 
-/* ============================================================
-   ACTIVITY FEED
-   ============================================================ */
+/* ACTIVITY FEED */
 .activity-feed {
   display: flex;
   flex-direction: column;
@@ -2062,9 +2002,7 @@ button { cursor: pointer; font-family: inherit; }
   margin-top: 2px;
 }
 
-/* ============================================================
-   IMPACT SECTION (Landing)
-   ============================================================ */
+/* IMPACT SECTION (Landing) */
 .impact-section {
   padding: var(--space-20) var(--space-8);
   position: relative;
@@ -2096,9 +2034,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-secondary);
 }
 
-/* ============================================================
-   CTA SECTION
-   ============================================================ */
+/* CTA SECTION */
 .cta-section {
   padding: var(--space-20) var(--space-8);
   position: relative;
@@ -2146,9 +2082,7 @@ button { cursor: pointer; font-family: inherit; }
   position: relative;
 }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
+/* FOOTER */
 .footer {
   padding: var(--space-12) var(--space-8);
   border-top: 1px solid var(--glass-border);

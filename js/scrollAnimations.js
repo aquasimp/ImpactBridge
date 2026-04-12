@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Scroll Animations
-   GSAP ScrollTrigger powered reveal & parallax animations
-   ============================================================ */
 
 const ScrollAnimations = {
   triggers: [],

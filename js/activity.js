@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Activity Log (Real Event Tracking)
-   Every user action is logged here — no fake static feed.
-   ============================================================ */
 
 const ActivityLog = {
   activities: [],
@@ -10,7 +6,7 @@ const ActivityLog = {
   init() {
     this.activities = Utils.loadFromStorage('activity_log') || [];
     
-    // If first run, seed with events derived from actual data
+
     if (this.activities.length === 0) {
       this.seedFromRealData();
     }
@@ -20,7 +16,7 @@ const ActivityLog = {
     const needs = NeedsManager.getAllNeeds();
     const vols = VolunteerManager.getAll();
 
-    // Generate events from actual data timestamps
+
     needs.forEach(need => {
       const cat = Utils.categoryColors[need.category] || { icon: '📋' };
       this.activities.push({
@@ -31,7 +27,7 @@ const ActivityLog = {
       });
     });
 
-    // Volunteer join events
+
     vols.forEach(vol => {
       this.activities.push({
         type: 'volunteer',
@@ -41,7 +37,7 @@ const ActivityLog = {
       });
     });
 
-    // Deployment events for deployed volunteers
+
     vols.filter(v => v.status === 'deployed').forEach(vol => {
       this.activities.push({
         type: 'deploy',
@@ -51,7 +47,7 @@ const ActivityLog = {
       });
     });
 
-    // Sort by time, newest first
+
     this.activities.sort((a, b) => b.timestamp - a.timestamp);
     this.save();
   },
@@ -74,13 +70,13 @@ const ActivityLog = {
       color: colors[type] || '#94a3b8'
     });
 
-    // Cap at max
+
     if (this.activities.length > this.maxEntries) {
       this.activities = this.activities.slice(0, this.maxEntries);
     }
 
     this.save();
-    this.renderFeed(); // live update
+    this.renderFeed();
   },
 
   save() {

@@ -1,7 +1,3 @@
-/* ============================================================
-   ImpactBridge — Firebase Configuration
-   Runs in DEMO MODE when no Firebase keys are configured
-   ============================================================ */
 
 const FirebaseConfig = {
   // Set to true and fill in your Firebase config to enable live mode
