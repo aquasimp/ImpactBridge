@@ -252,7 +252,6 @@ const Analytics = {
 
     const vols = VolunteerManager.getAll();
 
-
     const skillAreas = {};
     vols.forEach(v => {
       v.skills.forEach(skill => {
@@ -260,14 +259,12 @@ const Analytics = {
       });
     });
 
-
     const topSkills = Object.entries(skillAreas)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 8);
 
     const skillLabels = topSkills.map(s => s[0]);
     const skillCounts = topSkills.map(s => s[1]);
-
 
     const needs = NeedsManager.getAllNeeds();
     const catSkillDemand = {

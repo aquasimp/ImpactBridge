@@ -1,4 +1,4 @@
-/* ---- Tracker Layout ---- */
+/* Tracker Layout */
 .tracker-layout {
   display: grid;
   grid-template-columns: 340px 1fr;
@@ -33,7 +33,7 @@
   min-height: 600px;
 }
 
-/* ---- Live Indicator ---- */
+/* Live Indicator */
 .tracker-live-indicator {
   display: inline-flex;
   align-items: center;
@@ -63,7 +63,7 @@
   50% { transform: scale(0.65); opacity: 0.5; box-shadow: 0 0 4px #ef444440; }
 }
 
-/* ---- Tracker Header Stats ---- */
+/* Tracker Header Stats */
 .tracker-header-stats {
   display: flex;
   gap: var(--space-4);
@@ -90,7 +90,7 @@
   color: var(--primary-400);
 }
 
-/* ---- Device List ---- */
+/* Device List */
 .tracker-device-list-wrapper {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -287,7 +287,7 @@
   font-weight: 500;
 }
 
-/* ---- Telemetry Panel ---- */
+/* Telemetry Panel */
 .tracker-telemetry-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -355,7 +355,7 @@
   animation: statusPulse 2s ease-in-out infinite;
 }
 
-/* ---- Speed Gauge ---- */
+/* Speed Gauge */
 .telemetry-gauge-section {
   display: flex;
   align-items: center;
@@ -374,7 +374,7 @@
   transition: d 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ---- Telemetry Grid ---- */
+/* Telemetry Grid */
 .telemetry-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -448,7 +448,7 @@
   font-weight: 600;
 }
 
-/* ---- Coordinates Card ---- */
+/* Coordinates Card */
 .telemetry-coords-card {
   margin: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.03);
@@ -514,7 +514,7 @@
   letter-spacing: 0.02em;
 }
 
-/* ---- Map Markers ---- */
+/* Map Markers */
 .tracker-device-marker {
   position: relative;
   width: 36px;
@@ -573,7 +573,7 @@
   background: #475569;
 }
 
-/* ---- My Device Marker (special) ---- */
+/* My Device Marker (special) */
 .my-device-marker {
   position: relative;
   width: 40px;
@@ -632,7 +632,7 @@
   pointer-events: none;
 }
 
-/* ---- Leaflet Popup Override for Tracker ---- */
+/* Leaflet Popup Override for Tracker */
 .tracker-popup .leaflet-popup-content-wrapper {
   background: rgba(15, 23, 42, 0.96) !important;
   border-radius: 16px !important;
@@ -663,7 +663,7 @@
   color: #f8fafc !important;
 }
 
-/* ---- Geofence Tooltip ---- */
+/* Geofence Tooltip */
 .geofence-tooltip {
   background: rgba(15, 23, 42, 0.92) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -680,7 +680,7 @@
   border-top-color: rgba(15, 23, 42, 0.92) !important;
 }
 
-/* ---- Control Buttons Bar ---- */
+/* Control Buttons Bar */
 .tracker-controls {
   position: absolute;
   bottom: var(--space-5);
@@ -706,7 +706,7 @@
   letter-spacing: 0.01em;
 }
 
-/* ---- Map Overlay Info ---- */
+/* Map Overlay Info */
 .tracker-map-overlay-info {
   position: absolute;
   top: var(--space-4);
@@ -733,7 +733,7 @@
   letter-spacing: 0.02em;
 }
 
-/* ---- Add Device Modal Styles ---- */
+/* Add Device Modal Styles */
 .device-icon-picker {
   display: flex;
   flex-wrap: wrap;
@@ -793,7 +793,7 @@
   box-shadow: 0 0 16px currentColor;
 }
 
-/* ---- Responsive ---- */
+/* Responsive */
 @media (max-width: 1024px) {
   .tracker-layout {
     grid-template-columns: 1fr;

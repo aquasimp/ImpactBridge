@@ -1,7 +1,7 @@
-/* ---- Google Fonts ---- */
+/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-/* ---- CSS Custom Properties (Design Tokens) ---- */
+/* CSS Custom Properties (Design Tokens) */
 :root {
   /* Primary Palette — Emerald to Cyan gradient */
   --primary-50: #ecfdf5;
@@ -127,7 +127,7 @@
   --max-width: 1400px;
 }
 
-/* ---- Reset & Base ---- */
+/* Reset & Base */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -187,7 +187,7 @@ img { max-width: 100%; display: block; }
 
 button { cursor: pointer; font-family: inherit; }
 
-/* ---- Scrollbar ---- */
+/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
@@ -196,7 +196,7 @@ button { cursor: pointer; font-family: inherit; }
 }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
-/* ---- Selection ---- */
+/* Selection */
 ::selection {
   background: rgba(16, 185, 129, 0.3);
   color: var(--text-primary);
@@ -1562,7 +1562,7 @@ button { cursor: pointer; font-family: inherit; }
   border-radius: 50%;
 }
 
-/* ---- Leaflet Overrides for Dark Theme ---- */
+/* Leaflet Overrides for Dark Theme */
 #map-canvas .leaflet-container {
   background: #0a0f1e;
   font-family: var(--font-primary);
@@ -1593,7 +1593,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-tertiary) !important;
 }
 
-/* ---- Custom Map Marker Pins ---- */
+/* Custom Map Marker Pins */
 .custom-map-pin {
   background: transparent !important;
   border: none !important;
@@ -1604,7 +1604,7 @@ button { cursor: pointer; font-family: inherit; }
   border: none !important;
 }
 
-/* ---- Critical Need Pulse Animation ---- */
+/* Critical Need Pulse Animation */
 .pin-pulse-ring {
   position: absolute;
   top: 0;
@@ -1633,7 +1633,7 @@ button { cursor: pointer; font-family: inherit; }
   border-color: #ef4444;
 }
 
-/* ---- Dark Leaflet Popups ---- */
+/* Dark Leaflet Popups */
 .dark-popup .leaflet-popup-content-wrapper {
   background: rgba(10, 15, 30, 0.96) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;

@@ -1,4 +1,4 @@
-/* ---- Entrance Animations ---- */
+/* Entrance Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -34,7 +34,7 @@
   to { transform: translateY(0); }
 }
 
-/* ---- Continuous Animations ---- */
+/* Continuous Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -62,7 +62,7 @@
   100% { background-position: 0% 50%; }
 }
 
-/* ---- Particle Effect ---- */
+/* Particle Effect */
 @keyframes particleFloat {
   0% {
     transform: translate(0, 0) scale(1);
@@ -93,7 +93,7 @@
   animation: particleFloat var(--duration, 6s) var(--delay, 0s) ease-in-out infinite;
 }
 
-/* ---- Glow Pulse Effect ---- */
+/* Glow Pulse Effect */
 @keyframes glowPulse {
   0%, 100% {
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
@@ -105,13 +105,13 @@
 
 .glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
 
-/* ---- Number Counter ---- */
+/* Number Counter */
 @keyframes countUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---- Staggered List ---- */
+/* Staggered List */
 .stagger-list > * {
   opacity: 0;
   animation: fadeInUp 0.5s ease forwards;
@@ -128,7 +128,7 @@
 .stagger-list > *:nth-child(9) { animation-delay: 640ms; }
 .stagger-list > *:nth-child(10) { animation-delay: 720ms; }
 
-/* ---- Hover Lift ---- */
+/* Hover Lift */
 .hover-lift {
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
@@ -138,7 +138,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* ---- Ripple Effect ---- */
+/* Ripple Effect */
 .ripple-effect {
   position: relative;
   overflow: hidden;
@@ -160,7 +160,7 @@
   }
 }
 
-/* ---- Shimmer Text ---- */
+/* Shimmer Text */
 .shimmer-text {
   background: linear-gradient(
     90deg,
@@ -180,7 +180,7 @@
   100% { background-position: -200% center; }
 }
 
-/* ---- Border Glow ---- */
+/* Border Glow */
 .border-glow {
   position: relative;
 }
@@ -213,7 +213,7 @@
   100% { --glow-angle: 360deg; }
 }
 
-/* ---- Marquee ---- */
+/* Marquee */
 .marquee-container {
   overflow: hidden;
   white-space: nowrap;
@@ -229,7 +229,7 @@
   100% { transform: translateX(-50%); }
 }
 
-/* ---- Typing Animation ---- */
+/* Typing Animation */
 .typing-text::after {
   content: '|';
   animation: blink 0.7s step-end infinite;
@@ -241,7 +241,7 @@
   50% { opacity: 0; }
 }
 
-/* ---- Map Pin Bounce ---- */
+/* Map Pin Bounce */
 @keyframes pinBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
@@ -249,7 +249,7 @@
 
 .pin-bounce { animation: pinBounce 1s ease-in-out infinite; }
 
-/* ---- Status Dot ---- */
+/* Status Dot */
 @keyframes statusPulse {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
@@ -267,7 +267,7 @@
   animation: statusPulse 2s ease-in-out infinite;
 }
 
-/* ---- Chart Animation ---- */
+/* Chart Animation */
 @keyframes chartGrow {
   from { transform: scaleY(0); }
   to { transform: scaleY(1); }
@@ -278,7 +278,7 @@
   animation: chartGrow 0.8s ease-out forwards;
 }
 
-/* ---- Morph Background ---- */
+/* Morph Background */
 @keyframes morphBg {
   0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
   25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
@@ -290,7 +290,7 @@
   animation: morphBg 8s ease-in-out infinite;
 }
 
-/* ---- Notification Badge Pop ---- */
+/* Notification Badge Pop */
 @keyframes badgePop {
   0% { transform: scale(0); }
   50% { transform: scale(1.3); }
@@ -299,7 +299,7 @@
 
 .badge-pop { animation: badgePop 0.3s ease-out; }
 
-/* ---- Page Transition ---- */
+/* Page Transition */
 .page-enter {
   animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

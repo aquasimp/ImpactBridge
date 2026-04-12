@@ -15,7 +15,6 @@ const ActivityLog = {
     const needs = NeedsManager.getAllNeeds();
     const vols = VolunteerManager.getAll();
 
-
     needs.forEach(need => {
       const cat = Utils.categoryColors[need.category] || { icon: '📋' };
       this.activities.push({
@@ -26,7 +25,6 @@ const ActivityLog = {
       });
     });
 
-
     vols.forEach(vol => {
       this.activities.push({
         type: 'volunteer',
@@ -36,7 +34,6 @@ const ActivityLog = {
       });
     });
 
-
     vols.filter(v => v.status === 'deployed').forEach(vol => {
       this.activities.push({
         type: 'deploy',
@@ -45,7 +42,6 @@ const ActivityLog = {
         color: '#fbbf24'
       });
     });
-
 
     this.activities.sort((a, b) => b.timestamp - a.timestamp);
     this.save();
@@ -68,7 +64,6 @@ const ActivityLog = {
       timestamp: Date.now(),
       color: colors[type] || '#94a3b8'
     });
-
 
     if (this.activities.length > this.maxEntries) {
       this.activities = this.activities.slice(0, this.maxEntries);

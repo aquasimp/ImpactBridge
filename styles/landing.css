@@ -1,4 +1,4 @@
-/* ---- Custom Cursor ---- */
+/* Custom Cursor */
 .cursor-dot {
   position: fixed;
   top: -4px;
@@ -59,7 +59,7 @@
   cursor: none !important;
 }
 
-/* ---- Hero Section ---- */
+/* Hero Section */
 #at-hero {
   position: relative;
   width: 100%;
@@ -261,7 +261,7 @@
   font-weight: 500;
 }
 
-/* ---- Shared Section Styles ---- */
+/* Shared Section Styles */
 .at-section {
   position: relative;
   padding: 140px 60px;
@@ -310,7 +310,7 @@
   background-clip: text;
 }
 
-/* ---- About Section ---- */
+/* About Section */
 .at-about-text {
   font-size: clamp(16px, 1.4vw, 20px);
   color: #64748b;
@@ -326,7 +326,7 @@
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
 }
 
-/* ---- Features Section ---- */
+/* Features Section */
 .at-features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -391,7 +391,7 @@
   margin: 0;
 }
 
-/* ---- Impact Section ---- */
+/* Impact Section */
 .at-impact-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -434,7 +434,7 @@
   font-weight: 500;
 }
 
-/* ---- Tech Stack Section ---- */
+/* Tech Stack Section */
 .at-tech-grid {
   display: flex;
   gap: 16px;
@@ -472,7 +472,7 @@
   font-size: 20px;
 }
 
-/* ---- CTA Section ---- */
+/* CTA Section */
 #at-cta {
   text-align: center;
   display: flex;
@@ -498,7 +498,7 @@
   margin: 0 0 40px 0;
 }
 
-/* ---- Footer ---- */
+/* Footer */
 .at-footer {
   padding: 40px 60px;
   background: #000;
@@ -537,7 +537,7 @@
   color: #10b981;
 }
 
-/* ---- Navigation Override for Landing ---- */
+/* Navigation Override for Landing */
 .navbar-at {
   position: fixed;
   top: 0;
@@ -583,7 +583,7 @@
   font-size: 16px;
 }
 
-/* ---- Responsive ---- */
+/* Responsive */
 @media (max-width: 1024px) {
   .at-features-grid {
     grid-template-columns: repeat(2, 1fr);

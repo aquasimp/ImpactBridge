@@ -99,7 +99,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-team/impactbridge.git
+git clone https://github.com/aquasimp/ImpactBridge.git
 cd impactbridge
 
 # Option 1: Use any HTTP server
@@ -226,17 +226,6 @@ graph TB
 - **Material Symbols** — Google's icon system for consistency
 - **Responsive** — Mobile-first CSS with breakpoints at 480/768/1200px
 - **Micro-animations** — Scroll reveals, hover effects, toast notifications
-
----
-
-## 👥 Team
-
-| Role | Name |
-|---|---|
-| Full Stack Developer | [Your Name] |
-| AI/ML Engineer | [Team Member] |
-| UI/UX Designer | [Team Member] |
-| Project Lead | [Team Member] |
 
 ---
 

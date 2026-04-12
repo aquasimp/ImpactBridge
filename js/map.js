@@ -26,14 +26,11 @@ const MapModule = {
     const container = document.getElementById('map-canvas');
     if (!container) return;
 
-
     container.innerHTML = '';
     container.style.display = 'block';
 
-
     const legend = document.getElementById('map-legend');
     if (legend) legend.style.display = 'block';
-
 
     this.map = L.map(container, {
       center: [22.5, 80.5],
@@ -44,9 +41,7 @@ const MapModule = {
       attributionControl: true
     });
 
-
     L.control.zoom({ position: 'topright' }).addTo(this.map);
-
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
@@ -54,16 +49,12 @@ const MapModule = {
       maxZoom: 19
     }).addTo(this.map);
 
-
     this.markersLayerGroup = L.layerGroup().addTo(this.map);
     this.volunteerLayerGroup = L.layerGroup().addTo(this.map);
 
-
     this.addNeedMarkers();
 
-
     this.addVolunteerMarkers();
-
 
     this.prepareHeatmap();
 
@@ -201,12 +192,10 @@ const MapModule = {
     needs.forEach(need => {
       if (!need.lat || !need.lng) return;
 
-
       const priorityWeight = { critical: 1.0, high: 0.7, medium: 0.4, low: 0.2 };
       const weight = (priorityWeight[need.priority] || 0.3) * Math.min(need.affected / 1000, 3);
 
       heatData.push([need.lat, need.lng, weight]);
-
 
       if (need.priority === 'critical' || need.priority === 'high') {
         for (let i = 0; i < 5; i++) {
@@ -312,7 +301,6 @@ const MapModule = {
     if (!need || !need.lat || !need.lng || !this.map) return;
 
     this.map.flyTo([need.lat, need.lng], 10, { duration: 1.5 });
-
 
     this.needMarkers.forEach(marker => {
       const latlng = marker.getLatLng();

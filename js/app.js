@@ -1,6 +1,5 @@
 const ImpactBridge = {
   currentView: 'home',
-  
 
   needs: NeedsManager,
   volunteer: VolunteerManager,
@@ -15,33 +14,17 @@ const ImpactBridge = {
     console.log('%cSmart Resource Allocation for Social Impact', 'font-size:12px;color:#94a3b8');
     console.log('%cGoogle Solution Challenge 2026', 'font-size:11px;color:#64748b');
 
-
     FirebaseConfig.init();
-
-
     Auth.init();
-
-
     NeedsManager.init();
     VolunteerManager.init();
     ActivityLog.init();
-
-
     this.setupRouter();
-
-
     this.setupNavbar();
-
-
     Utils.initScrollReveals();
     Utils.initRippleEffects();
-
-
     CustomCursor.init();
-
-
     this.handleRoute();
-
 
     setTimeout(() => {
       this.ui.showToast('info', '🎮 Demo Mode Active', 'Running with sample data. Add API keys for live mode.');
@@ -60,34 +43,25 @@ const ImpactBridge = {
   },
 
   navigateTo(view) {
-    // hide all views
     document.querySelectorAll('.view').forEach(v => {
       v.classList.remove('active');
     });
-
 
     const targetView = document.getElementById(`view-${view}`);
     if (targetView) {
       targetView.classList.add('active');
       this.currentView = view;
     } else {
-  
       document.getElementById('view-home').classList.add('active');
       this.currentView = 'home';
     }
 
-
     this.updateNavState(this.currentView);
-
-
     this.renderView(this.currentView);
-
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 
   renderView(view) {
-
     if (view !== 'home') {
       Hero3D.destroy();
       ScrollAnimations.destroy();
@@ -104,17 +78,15 @@ const ImpactBridge = {
         VolunteerManager.renderVolunteersGrid();
         break;
       case 'map':
-        // wait for container visibility
         setTimeout(() => MapModule.init(), 100);
         break;
       case 'analytics':
         Analytics.render();
         break;
-
+      case 'tracker':
         setTimeout(() => LocationTracker.init(), 100);
         break;
       case 'home':
-
         setTimeout(() => {
           Hero3D.init();
           ScrollAnimations.init();
@@ -129,7 +101,6 @@ const ImpactBridge = {
     const navToggle = document.getElementById('nav-toggle');
     const getStartedBtn = document.getElementById('nav-get-started');
 
-
     window.addEventListener('scroll', Utils.throttle(() => {
       if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
@@ -138,13 +109,11 @@ const ImpactBridge = {
       }
     }, 100));
 
-
     if (navToggle) {
       navToggle.addEventListener('click', () => {
         navLinks.classList.toggle('open');
       });
     }
-
 
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', (e) => {
@@ -158,16 +127,13 @@ const ImpactBridge = {
     const navLinks = document.getElementById('nav-links');
     const getStartedBtn = document.getElementById('nav-get-started');
 
-
     if (isApp) {
       navLinks.style.display = '';
       getStartedBtn?.classList.add('hidden');
     } else {
-      // On home page, show get started button, hide app nav
       navLinks.style.display = 'none';
       getStartedBtn?.classList.remove('hidden');
     }
-
 
     document.querySelectorAll('.nav-link').forEach(link => {
       const linkView = link.dataset.view;
@@ -180,7 +146,7 @@ const ImpactBridge = {
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
       toast.className = `toast toast-${type}`;
-      
+
       const icons = {
         success: '✅',
         error: '❌',
@@ -197,8 +163,6 @@ const ImpactBridge = {
       `;
 
       container.appendChild(toast);
-
-      // Auto dismiss
       setTimeout(() => {
         toast.classList.add('toast-out');
         setTimeout(() => toast.remove(), 300);
@@ -210,8 +174,6 @@ const ImpactBridge = {
       if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-
-
         modal.addEventListener('click', (e) => {
           if (e.target === modal) this.closeModal(id);
         });

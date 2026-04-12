@@ -220,7 +220,6 @@ const VolunteerManager = {
     Utils.saveToStorage('volunteers', this.volunteers);
   },
 
-
   getAll(filter = 'all') {
     if (filter === 'available') return this.volunteers.filter(v => v.status === 'available');
     if (filter === 'deployed') return this.volunteers.filter(v => v.status === 'deployed');
@@ -255,7 +254,6 @@ const VolunteerManager = {
     return newVol;
   },
 
-
   getStats() {
     const total = this.volunteers.length;
     const available = this.volunteers.filter(v => v.status === 'available').length;
@@ -266,7 +264,6 @@ const VolunteerManager = {
 
     return { total, available, deployed, totalHours, totalMissions, avgRating: avgRating.toFixed(1) };
   },
-
 
   matchVolunteersToNeed(needId) {
     const need = NeedsManager.getNeedById(needId);
@@ -365,7 +362,6 @@ const VolunteerManager = {
     resultsContainer.classList.remove('hidden');
     resultsList.innerHTML = '<div class="flex-center" style="padding:24px"><div class="loading-spinner"></div></div>';
 
-
     await Utils.sleep(1500);
 
     const matches = this.matchVolunteersToNeed(needId);
@@ -443,9 +439,7 @@ const VolunteerManager = {
       </div>
     `).join('');
 
-
     this.renderVolunteerStats();
-
 
     this.setupVolunteerTabs();
     this.setupVolunteerSearch();

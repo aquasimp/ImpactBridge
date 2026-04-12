@@ -4,7 +4,6 @@ const LocationTracker = {
   watchId: null,
   updateInterval: null,
 
-
   myDevice: {
     id: 'my-device',
     name: 'My Device',
@@ -30,7 +29,6 @@ const LocationTracker = {
   trackingActive: false,
   showHistory: true,
   mapStyle: 'dark',
-
 
   simulatedDevices: [
     {
@@ -120,7 +118,6 @@ const LocationTracker = {
     }
   ],
 
-
   init() {
     if (this.map) {
       this.map.remove();
@@ -128,14 +125,11 @@ const LocationTracker = {
       this.initialized = false;
     }
 
-
     this.deviceMarkers = {};
     this.historyPolylines = {};
     this.geofenceCircles = [];
 
-
     this.trackedDevices = JSON.parse(JSON.stringify(this.simulatedDevices));
-
 
     this.trackedDevices.forEach(d => this.generateFakeHistory(d));
 
@@ -153,7 +147,6 @@ const LocationTracker = {
     if (!container) return;
     container.innerHTML = '';
 
-
     const defaultCenter = [28.6139, 77.2090];
 
     this.map = L.map(container, {
@@ -167,22 +160,18 @@ const LocationTracker = {
 
     L.control.zoom({ position: 'topright' }).addTo(this.map);
 
-
     this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
       subdomains: 'abcd',
       maxZoom: 19
     }).addTo(this.map);
 
-
     this.trackedDevices.forEach(device => {
       this.addDeviceMarker(device);
       this.addDeviceHistory(device);
     });
 
-
     this.addDefaultGeofences();
-
 
     this.getUserLocation();
   },
@@ -208,9 +197,7 @@ const LocationTracker = {
           timestamp: Date.now()
         });
 
-
         this.addMyDeviceMarker();
-
 
         this.map.flyTo([this.myDevice.lat, this.myDevice.lng], 13, { duration: 1.5 });
 
@@ -228,7 +215,6 @@ const LocationTracker = {
       },
       { enableHighAccuracy: true, timeout: 10000 }
     );
-
 
     this.watchId = navigator.geolocation.watchPosition(
       (pos) => {
@@ -492,7 +478,6 @@ const LocationTracker = {
       this.trackedDevices.forEach(device => {
         if (device.status !== 'active') return;
 
-
         const angle = Math.random() * Math.PI * 2;
         const distance = device.movement.speed * (0.5 + Math.random());
         const newLat = device.lat + Math.sin(angle) * distance;
@@ -515,11 +500,9 @@ const LocationTracker = {
           timestamp: Date.now()
         });
 
-
         if (device.history.length > 100) {
           device.history = device.history.slice(-80);
         }
-
 
         const marker = this.deviceMarkers[device.id];
         if (marker) {
@@ -527,13 +510,10 @@ const LocationTracker = {
           marker.setPopupContent(this.createDevicePopup(device, false));
         }
 
-
         this.updateDeviceHistory(device);
-
 
         this.checkGeofences(device);
       });
-
 
       this.renderTelemetryPanel();
       this.updateDeviceListStatus();
@@ -589,7 +569,6 @@ const LocationTracker = {
     const container = document.getElementById('tracker-device-list');
     if (!container) return;
 
-
     let html = `
       <div class="tracker-device-item ${this.selectedDevice === 'my-device' ? 'selected' : ''}" 
            onclick="LocationTracker.selectDevice('my-device')" id="tracker-item-my-device">
@@ -615,7 +594,6 @@ const LocationTracker = {
         </div>
       </div>
     `;
-
 
     this.trackedDevices.forEach(device => {
       const batteryColor = device.battery > 60 ? '#10b981' : device.battery > 25 ? '#f59e0b' : '#ef4444';
@@ -687,11 +665,9 @@ const LocationTracker = {
   selectDevice(deviceId) {
     this.selectedDevice = deviceId;
 
-
     document.querySelectorAll('.tracker-device-item').forEach(el => el.classList.remove('selected'));
     const item = document.getElementById(`tracker-item-${deviceId}`);
     if (item) item.classList.add('selected');
-
 
     let device;
     if (deviceId === 'my-device') {
@@ -702,7 +678,6 @@ const LocationTracker = {
 
     if (device && device.lat && device.lng) {
       this.map.flyTo([device.lat, device.lng], 14, { duration: 1.2 });
-
 
       const marker = this.deviceMarkers[deviceId];
       if (marker) {
@@ -921,7 +896,6 @@ const LocationTracker = {
       centerAllBtn.onclick = () => this.centerOnAll();
     }
 
-
     const toggleHistoryBtn = document.getElementById('tracker-toggle-history');
     if (toggleHistoryBtn) {
       toggleHistoryBtn.onclick = () => {
@@ -941,7 +915,6 @@ const LocationTracker = {
       };
     }
 
-
     const toggleGeofenceBtn = document.getElementById('tracker-toggle-geofence');
     if (toggleGeofenceBtn) {
       let gfVisible = true;
@@ -956,7 +929,6 @@ const LocationTracker = {
       };
     }
 
-
     const locateMeBtn = document.getElementById('tracker-locate-me');
     if (locateMeBtn) {
       locateMeBtn.onclick = () => {
@@ -968,7 +940,6 @@ const LocationTracker = {
         }
       };
     }
-
 
     const pauseBtn = document.getElementById('tracker-pause');
     if (pauseBtn) {
@@ -1039,11 +1010,9 @@ const LocationTracker = {
     ImpactBridge.ui.closeModal('modal-add-device');
   },
 
-
   openAddDeviceModal() {
     ImpactBridge.ui.openModal('modal-add-device');
   },
-
 
   _selectedIcon: '📱',
   _selectedColor: '#10b981',
@@ -1073,7 +1042,6 @@ const LocationTracker = {
     this._selectedIcon = '📱';
     this._selectedColor = '#10b981';
   },
-
 
   destroy() {
     this.stopTracking();

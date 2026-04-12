@@ -35,7 +35,6 @@ const Utils = {
     return 'just now';
   },
 
-
   formatNumber(num) {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
@@ -45,7 +44,6 @@ const Utils = {
   formatCompact(num) {
     return new Intl.NumberFormat('en-IN', { notation: 'compact' }).format(num);
   },
-
 
   randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -68,14 +66,12 @@ const Utils = {
     return shuffled;
   },
 
-
   generateId() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
       const r = Math.random() * 16 | 0;
       return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
   },
-
 
   $(selector) {
     return document.querySelector(selector);
@@ -104,7 +100,6 @@ const Utils = {
     return el;
   },
 
-
   debounce(fn, delay = 300) {
     let timer;
     return (...args) => {
@@ -112,7 +107,6 @@ const Utils = {
       timer = setTimeout(() => fn(...args), delay);
     };
   },
-
 
   throttle(fn, limit = 100) {
     let inThrottle;
@@ -124,7 +118,6 @@ const Utils = {
       }
     };
   },
-
 
   animateCounter(element, target, duration = 2000, suffix = '') {
     const start = 0;
@@ -146,7 +139,6 @@ const Utils = {
     
     requestAnimationFrame(update);
   },
-
 
   initScrollReveals() {
     const observer = new IntersectionObserver((entries) => {
@@ -178,7 +170,6 @@ const Utils = {
     });
   },
 
-
   generateParticles(container, count = 30) {
     const containerEl = typeof container === 'string' ? document.querySelector(container) : container;
     if (!containerEl) return;
@@ -201,7 +192,6 @@ const Utils = {
     }
   },
 
-
   initRippleEffects() {
     document.querySelectorAll('.ripple-effect').forEach(el => {
       el.addEventListener('click', function(e) {
@@ -217,7 +207,6 @@ const Utils = {
       });
     });
   },
-
 
   getChartDefaults() {
     return {
@@ -256,7 +245,6 @@ const Utils = {
     };
   },
 
-
   createChartGradient(ctx, color1, color2) {
     const gradient = ctx.createLinearGradient(0, 0, 0, 280);
     gradient.addColorStop(0, color1);
@@ -264,11 +252,9 @@ const Utils = {
     return gradient;
   },
 
-
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   },
-
 
   saveToStorage(key, data) {
     try {
@@ -286,7 +272,6 @@ const Utils = {
       return null;
     }
   },
-
 
   categoryColors: {
     healthcare: { bg: 'rgba(239,68,68,0.12)', text: '#f87171', icon: '🏥' },

@@ -68,7 +68,6 @@ const Dashboard = {
     gradient2.addColorStop(0, 'rgba(6, 182, 212, 0.2)');
     gradient2.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
 
-
     const chartData = this.computeNeedsOverTime('week');
     const defaults = Utils.getChartDefaults();
 
@@ -127,7 +126,6 @@ const Dashboard = {
         interaction: { intersect: false, mode: 'index' }
       }
     });
-
 
     document.querySelectorAll('[data-period]').forEach(btn => {
       btn.addEventListener('click', () => {

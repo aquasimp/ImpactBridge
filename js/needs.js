@@ -218,7 +218,6 @@ const NeedsManager = {
     Utils.saveToStorage('needs', this.needs);
   },
 
-
   getAllNeeds() {
     return this.needs.sort((a, b) => {
       const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
@@ -265,7 +264,6 @@ const NeedsManager = {
     }
     return null;
   },
-
 
   getStats() {
     const total = this.needs.length;
@@ -316,7 +314,6 @@ const NeedsManager = {
     document.getElementById('need-form').reset();
     ImpactBridge.ui.showToast('success', 'Need Submitted', 'Community need has been recorded and prioritized.');
     ActivityLog.add('need', `New ${need.priority} need: "${need.title}" in ${need.location}`);
-
 
     if (ImpactBridge.currentView === 'needs') this.renderNeedsGrid();
     if (ImpactBridge.currentView === 'dashboard') ImpactBridge.dashboard.render();
@@ -386,7 +383,6 @@ const NeedsManager = {
         </div>
       `;
     }).join('');
-
 
     this.setupFilters();
   },

@@ -19,15 +19,12 @@ const Hero3D = {
 
     this.clock = new THREE.Clock();
 
-
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.FogExp2(0x000000, 0.0008);
-
 
     const aspect = window.innerWidth / window.innerHeight;
     this.camera = new THREE.PerspectiveCamera(60, aspect, 1, 2000);
     this.camera.position.z = 500;
-
 
     this.renderer = new THREE.WebGLRenderer({
       canvas,
@@ -39,10 +36,8 @@ const Hero3D = {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setClearColor(0x000000, 0);
 
-
     this.createParticleGlobe();
     this.createAmbientParticles();
-
 
     this._onMouseMove = (e) => {
       this.mouse.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -52,7 +47,6 @@ const Hero3D = {
 
     window.addEventListener('mousemove', this._onMouseMove, { passive: true });
     window.addEventListener('resize', this._onResize, { passive: true });
-
 
     this.animate();
     this.initialized = true;
@@ -81,7 +75,6 @@ const Hero3D = {
       positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       positions[i * 3 + 2] = r * Math.cos(phi);
 
-
       const colorChoice = Math.random();
       let color;
       if (colorChoice < 0.4) {
@@ -104,7 +97,6 @@ const Hero3D = {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
     geometry.setAttribute('phase', new THREE.BufferAttribute(phases, 1));
-
 
     const material = new THREE.ShaderMaterial({
       uniforms: {
