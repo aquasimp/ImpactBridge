@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ImpactBridge — AI-Powered Volunteer Coordination Platform. Connect community needs with skilled volunteers using Google AI, Maps, and Firebase.">
+  <meta name="keywords" content="volunteer coordination, community impact, NGO, AI matching, Google Solution Challenge 2026">
+  <meta name="author" content="ImpactBridge Team">
+  <meta name="theme-color" content="#0a0f1e">
+  <title>ImpactBridge — Smart Resource Allocation for Social Impact</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="styles/tracker.css">
+  <link rel="stylesheet" href="styles/landing.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+
+  <!-- Leaflet.js (free interactive map — no API key needed) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+  <!-- Three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Firebase SDK (v10 modular compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand" id="nav-brand">
+        <div class="brand-icon">🌍</div>
+        <span>ImpactBridge</span>
+      </a>
+
+      <!-- App navigation (hidden on landing, shown in app) -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#dashboard" data-view="dashboard" class="nav-link">
+          <span class="material-symbols-outlined nav-icon">dashboard</span>
+          Dashboard
+        </a></li>
+        <li><a href="#needs" data-view="needs" class="nav-link">
+          <span class="material-symbols-outlined nav-icon">volunteer_activism</span>
+          Needs
+        </a></li>
+        <li><a href="#volunteers" data-view="volunteers" class="nav-link">
+          <span class="material-symbols-outlined nav-icon">groups</span>
+          Volunteers
+        </a></li>
+        <li><a href="#map" data-view="map" class="nav-link">
+          <span class="material-symbols-outlined nav-icon">map</span>
+          Map
+        </a></li>
+        <li><a href="#analytics" data-view="analytics" class="nav-link">
+          <span class="material-symbols-outlined nav-icon">analytics</span>
+          Analytics
+        </a></li>
+        <li><a href="#tracker" data-view="tracker" class="nav-link">
+          <span class="material-symbols-outlined nav-icon">location_on</span>
+          Tracker
+        </a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="nav-user hidden" id="nav-user">
+          <div class="nav-user-avatar" id="nav-user-avatar">A</div>
+          <span class="nav-user-name" id="nav-user-name">User</span>
+        </div>
+        <button class="btn btn-primary btn-sm hidden" id="nav-get-started" onclick="window.location.hash='dashboard'">
+          <span class="material-symbols-outlined" style="font-size:16px">rocket_launch</span>
+          Get Started
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       VIEW: LANDING / HOME (Active Theory Inspired)
+       ============================================================ -->
+  <div class="view active" id="view-home" style="background:#000">
+
+    <!-- ---- Hero Section ---- -->
+    <section id="at-hero">
+      <canvas id="hero-canvas"></canvas>
+
+      <div class="at-hero-content">
+        <div id="at-hero-badge">
+          <span class="pulse-dot"></span>
+          Google Solution Challenge 2026
+        </div>
+
+        <h1 class="at-hero-title">
+          <span class="at-hero-line">Bridging</span>
+          <span class="at-hero-line">Communities</span>
+          <span class="at-hero-line">Through <span class="at-accent">Technology</span></span>
+        </h1>
+
+        <p id="at-hero-desc">
+          ImpactBridge uses Google AI to transform scattered NGO data into actionable insights,
+          intelligently matching skilled volunteers to the communities that need them most.
+        </p>
+
+        <div class="at-hero-cta">
+          <a href="#dashboard" class="btn-at-primary">
+            <span class="material-symbols-outlined" style="font-size:18px">rocket_launch</span>
+            Launch Dashboard
+          </a>
+          <a href="#needs" class="btn-at-secondary">
+            <span class="material-symbols-outlined" style="font-size:18px">play_circle</span>
+            Explore Platform
+          </a>
+        </div>
+
+        <div class="at-hero-stats">
+          <div class="at-hero-stat">
+            <div class="at-hero-stat-value">3.4M+</div>
+            <div class="at-hero-stat-label">NGOs in India</div>
+          </div>
+          <div class="at-hero-stat">
+            <div class="at-hero-stat-value">89%</div>
+            <div class="at-hero-stat-label">Data Goes Unused</div>
+          </div>
+          <div class="at-hero-stat">
+            <div class="at-hero-stat-value">2min</div>
+            <div class="at-hero-stat-label">Average Match Time</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="at-scroll-indicator">
+        <div class="at-scroll-line"></div>
+        <span class="at-scroll-text">Scroll</span>
+      </div>
+    </section>
+
+    <!-- ---- Divider ---- -->
+    <div class="at-divider"></div>
+
+    <!-- ---- About Section ---- -->
+    <section id="at-about" class="at-section">
+      <div class="at-section-inner">
+        <div class="at-section-label">About the Platform</div>
+        <h2 class="at-section-title">
+          We blend <span class="at-accent">AI, Maps & Cloud</span> to solve the volunteer coordination crisis.
+        </h2>
+        <p class="at-about-text">
+          India has 3.4 million NGOs, but 89% of their field data is collected on paper and never digitized. 
+          Volunteers are abundant but poorly matched to actual needs. ImpactBridge closes this gap with 
+          Gemini AI-powered data extraction, intelligent skill matching, and real-time geospatial coordination 
+          — turning scattered efforts into organized impact.
+        </p>
+      </div>
+    </section>
+
+    <!-- ---- Divider ---- -->
+    <div class="at-divider"></div>
+
+    <!-- ---- Features Section ---- -->
+    <section id="at-features" class="at-section">
+      <div class="at-section-inner">
+        <div class="at-section-label">Core Capabilities</div>
+        <h2 class="at-section-title">
+          Six pillars of <span class="at-accent">intelligent</span> coordination
+        </h2>
+
+        <div class="at-features-grid">
+          <div class="feature-card-at">
+            <div class="feature-card-at-number">01</div>
+            <div class="feature-card-at-icon" style="background:rgba(16,185,129,0.08)">
+              <span class="material-symbols-outlined" style="color:#10b981;font-size:24px">upload_file</span>
+            </div>
+            <h3>AI Data Extraction</h3>
+            <p>Upload paper surveys, field reports, or PDFs. Gemini AI instantly extracts structured data — categorizing needs and geolocating areas.</p>
+          </div>
+
+          <div class="feature-card-at">
+            <div class="feature-card-at-number">02</div>
+            <div class="feature-card-at-icon" style="background:rgba(6,182,212,0.08)">
+              <span class="material-symbols-outlined" style="color:#06b6d4;font-size:24px">hub</span>
+            </div>
+            <h3>Smart Priority Engine</h3>
+            <p>AI analyzes severity, population affected, and time sensitivity to generate dynamic urgency scores that surface critical needs.</p>
+          </div>
+
+          <div class="feature-card-at">
+            <div class="feature-card-at-number">03</div>
+            <div class="feature-card-at-icon" style="background:rgba(139,92,246,0.08)">
+              <span class="material-symbols-outlined" style="color:#8b5cf6;font-size:24px">psychology</span>
+            </div>
+            <h3>Intelligent Matching</h3>
+            <p>AI maps volunteer skills, availability, and location to community needs. One-click coordination, right people, right place.</p>
+          </div>
+
+          <div class="feature-card-at">
+            <div class="feature-card-at-number">04</div>
+            <div class="feature-card-at-icon" style="background:rgba(245,158,11,0.08)">
+              <span class="material-symbols-outlined" style="color:#f59e0b;font-size:24px">map</span>
+            </div>
+            <h3>Real-Time Maps</h3>
+            <p>Interactive heatmaps visualize need density, volunteer coverage, and gap zones with optimized route deployment.</p>
+          </div>
+
+          <div class="feature-card-at">
+            <div class="feature-card-at-number">05</div>
+            <div class="feature-card-at-icon" style="background:rgba(239,68,68,0.08)">
+              <span class="material-symbols-outlined" style="color:#ef4444;font-size:24px">monitoring</span>
+            </div>
+            <h3>Impact Analytics</h3>
+            <p>Track deployments, hours contributed, and people helped. AI generates impact reports with before/after metrics.</p>
+          </div>
+
+          <div class="feature-card-at">
+            <div class="feature-card-at-number">06</div>
+            <div class="feature-card-at-icon" style="background:rgba(16,185,129,0.08)">
+              <span class="material-symbols-outlined" style="color:#10b981;font-size:24px">smart_toy</span>
+            </div>
+            <h3>AI Assistant</h3>
+            <p>Natural language commands — "Find 5 medical volunteers near Wayanad" — Gemini understands and executes instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- Divider ---- -->
+    <div class="at-divider"></div>
+
+    <!-- ---- Impact Section ---- -->
+    <section id="at-impact" class="at-section">
+      <div class="at-section-inner">
+        <div class="at-section-label">The Problem</div>
+        <h2 class="at-section-title">
+          The crisis in <span class="at-accent">numbers</span>
+        </h2>
+
+        <div class="at-impact-grid">
+          <div class="at-impact-card">
+            <div class="at-impact-number" data-target="67" data-suffix="%">0</div>
+            <div class="at-impact-label">NGO data collected on paper goes unused</div>
+          </div>
+          <div class="at-impact-card">
+            <div class="at-impact-number" data-target="4" data-suffix="hrs">0</div>
+            <div class="at-impact-label">Average time to coordinate volunteers</div>
+          </div>
+          <div class="at-impact-card">
+            <div class="at-impact-number" data-target="42" data-suffix="%">0</div>
+            <div class="at-impact-label">Volunteers have mismatched skills</div>
+          </div>
+          <div class="at-impact-card">
+            <div class="at-impact-number" data-target="78" data-suffix="%">0</div>
+            <div class="at-impact-label">Communities unaware of available help</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- Divider ---- -->
+    <div class="at-divider"></div>
+
+    <!-- ---- Tech Stack ---- -->
+    <section id="at-tech" class="at-section">
+      <div class="at-section-inner">
+        <div class="at-section-label">Built With</div>
+        <h2 class="at-section-title">
+          Powered by <span class="at-accent">Google</span>
+        </h2>
+
+        <div class="at-tech-grid">
+          <div class="at-tech-item">
+            <div class="at-tech-item-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            </div>
+            Google Cloud Platform
+          </div>
+          <div class="at-tech-item">
+            <div class="at-tech-item-icon">🔥</div>
+            Firebase Firestore
+          </div>
+          <div class="at-tech-item">
+            <div class="at-tech-item-icon">✨</div>
+            Gemini AI (Generative)
+          </div>
+          <div class="at-tech-item">
+            <div class="at-tech-item-icon">🗺️</div>
+            Maps Platform
+          </div>
+          <div class="at-tech-item">
+            <div class="at-tech-item-icon">📊</div>
+            Chart.js Analytics
+          </div>
+          <div class="at-tech-item">
+            <div class="at-tech-item-icon">📍</div>
+            Leaflet.js + GPS
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- Divider ---- -->
+    <div class="at-divider"></div>
+
+    <!-- ---- CTA Section ---- -->
+    <section id="at-cta" class="at-section">
+      <div class="at-section-inner" style="text-align:center;display:flex;flex-direction:column;align-items:center">
+        <h2 class="at-cta-title">Ready to make an<br><span class="at-accent">Impact</span>?</h2>
+        <p class="at-cta-desc">
+          Whether you're an NGO with community data or a volunteer ready to help — ImpactBridge connects you.
+        </p>
+        <a href="#dashboard" class="btn-at-primary" style="font-size:15px;padding:18px 44px">
+          <span class="material-symbols-outlined" style="font-size:20px">rocket_launch</span>
+          Launch Platform
+        </a>
+      </div>
+    </section>
+
+    <!-- ---- Footer ---- -->
+    <footer class="at-footer">
+      <div class="at-footer-inner">
+        <div class="at-footer-text">© 2026 ImpactBridge — Built for Google Solution Challenge</div>
+        <div class="at-footer-links">
+          <a href="#">GitHub</a>
+          <a href="#">Documentation</a>
+          <a href="#">Team</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ============================================================
+       VIEW: DASHBOARD
+       ============================================================ -->
+  <div class="view" id="view-dashboard">
+    <div class="page-content">
+      <div class="container">
+        <!-- Header -->
+        <div class="page-header flex-between">
+          <div>
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">Real-time overview of community needs and volunteer coordination</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" onclick="ImpactBridge.needs.openSubmitModal()">
+              <span class="material-symbols-outlined" style="font-size:16px">add_circle</span>
+              Report Need
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="ImpactBridge.gemini.openChat()">
+              <span class="material-symbols-outlined" style="font-size:16px">smart_toy</span>
+              AI Assistant
+            </button>
+          </div>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="dashboard-grid stagger-list" id="dashboard-stats">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="dashboard-main">
+          <div>
+            <!-- Needs Over Time Chart -->
+            <div class="glass-card dashboard-chart-card no-hover">
+              <div class="chart-header">
+                <div>
+                  <div class="chart-title">Needs Reported Over Time</div>
+                  <div style="font-size:var(--text-xs);color:var(--text-tertiary);margin-top:4px">Last 30 days</div>
+                </div>
+                <div class="tabs">
+                  <button class="tab-btn active" data-period="week">Week</button>
+                  <button class="tab-btn" data-period="month">Month</button>
+                  <button class="tab-btn" data-period="year">Year</button>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="needs-chart"></canvas>
+              </div>
+            </div>
+
+            <!-- Category Distribution -->
+            <div class="glass-card dashboard-chart-card no-hover" style="margin-top:var(--space-6)">
+              <div class="chart-header">
+                <div class="chart-title">Needs by Category</div>
+              </div>
+              <div class="chart-container" style="height:240px">
+                <canvas id="category-chart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Sidebar -->
+          <div>
+            <!-- Recent Needs -->
+            <div class="glass-card no-hover" style="padding:var(--space-5)">
+              <div class="flex-between" style="margin-bottom:var(--space-4)">
+                <h3 class="chart-title">🚨 Urgent Needs</h3>
+                <a href="#needs" style="font-size:var(--text-xs);color:var(--primary-400)">View All →</a>
+              </div>
+              <div id="urgent-needs-list" class="stagger-list" style="display:flex;flex-direction:column;gap:var(--space-3)">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="glass-card no-hover" style="padding:var(--space-5);margin-top:var(--space-6)">
+              <h3 class="chart-title" style="margin-bottom:var(--space-4)">📡 Live Activity</h3>
+              <div class="activity-feed" id="activity-feed">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW: NEEDS
+       ============================================================ -->
+  <div class="view" id="view-needs">
+    <div class="page-content">
+      <div class="container">
+        <div class="page-header flex-between">
+          <div>
+            <h1 class="page-title">Community Needs</h1>
+            <p class="page-subtitle">Browse, submit, and prioritize community needs with AI analysis</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" onclick="ImpactBridge.needs.openAIParseModal()">
+              <span class="material-symbols-outlined" style="font-size:16px">auto_awesome</span>
+              AI Parse Report
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="ImpactBridge.needs.openSubmitModal()">
+              <span class="material-symbols-outlined" style="font-size:16px">add_circle</span>
+              Submit Need
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar" id="needs-filter-bar">
+          <span class="filter-chip active" data-filter="all">All</span>
+          <span class="filter-chip" data-filter="healthcare">🏥 Healthcare</span>
+          <span class="filter-chip" data-filter="education">📚 Education</span>
+          <span class="filter-chip" data-filter="disaster">🌊 Disaster Relief</span>
+          <span class="filter-chip" data-filter="environment">🌱 Environment</span>
+          <span class="filter-chip" data-filter="shelter">🏠 Shelter</span>
+          <span class="filter-chip" data-filter="food">🍚 Food & Water</span>
+          <span class="filter-chip" data-filter="livelihood">💼 Livelihood</span>
+        </div>
+
+        <!-- Needs Grid -->
+        <div class="grid-3" id="needs-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW: VOLUNTEERS
+       ============================================================ -->
+  <div class="view" id="view-volunteers">
+    <div class="page-content">
+      <div class="container">
+        <div class="page-header flex-between">
+          <div>
+            <h1 class="page-title">Volunteer Network</h1>
+            <p class="page-subtitle">Smart matching connects the right volunteers with urgent needs</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" onclick="ImpactBridge.volunteer.openMatchModal()">
+              <span class="material-symbols-outlined" style="font-size:16px">psychology</span>
+              AI Match
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="ImpactBridge.volunteer.openRegisterModal()">
+              <span class="material-symbols-outlined" style="font-size:16px">person_add</span>
+              Register Volunteer
+            </button>
+          </div>
+        </div>
+
+        <!-- Volunteer Stats -->
+        <div class="grid-4 stagger-list" id="volunteer-stats">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Volunteers Grid -->
+        <div style="margin-top:var(--space-6)">
+          <div class="flex-between" style="margin-bottom:var(--space-4)">
+            <div class="tabs" id="volunteer-tabs">
+              <button class="tab-btn active" data-tab="all">All Volunteers</button>
+              <button class="tab-btn" data-tab="available">Available Now</button>
+              <button class="tab-btn" data-tab="deployed">Deployed</button>
+            </div>
+            <div style="display:flex;gap:var(--space-3)">
+              <input type="text" class="form-input" placeholder="Search by name or skill..." style="width:260px" id="volunteer-search">
+            </div>
+          </div>
+
+          <div class="grid-3" id="volunteers-grid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW: MAP
+       ============================================================ -->
+  <div class="view" id="view-map">
+    <div class="page-content">
+      <div class="container">
+        <div class="page-header flex-between">
+          <div>
+            <h1 class="page-title">Impact Map</h1>
+            <p class="page-subtitle">Geospatial view of community needs and volunteer coverage</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" id="map-toggle-heatmap">
+              <span class="material-symbols-outlined" style="font-size:16px">layers</span>
+              Toggle Heatmap
+            </button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 340px;gap:var(--space-6)">
+          <!-- Map -->
+          <div class="glass-card no-hover" style="padding:0;overflow:hidden;height:600px;position:relative">
+            <div id="map-canvas" style="width:100%;height:100%;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center">
+              <div style="text-align:center;color:var(--text-tertiary)">
+                <span class="material-symbols-outlined" style="font-size:64px;opacity:0.3">map</span>
+                <p style="margin-top:16px;font-size:var(--text-sm)">Interactive map loading...</p>
+                <p style="margin-top:8px;font-size:var(--text-xs);color:var(--text-muted)">Demo mode: Simulated map visualization</p>
+              </div>
+            </div>
+            <!-- Map Legend -->
+            <div class="map-legend" id="map-legend" style="display:none">
+              <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--red-400)"></div> Critical Need</div>
+              <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--amber-400)"></div> High Priority</div>
+              <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--cyan-400)"></div> Medium Priority</div>
+              <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--primary-400)"></div> Volunteer Location</div>
+            </div>
+          </div>
+
+          <!-- Map Sidebar -->
+          <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+            <!-- Map Stats -->
+            <div class="glass-card no-hover" style="padding:var(--space-5)">
+              <h3 class="chart-title" style="margin-bottom:var(--space-4)">📊 Coverage Overview</h3>
+              <div id="map-stats" style="display:flex;flex-direction:column;gap:var(--space-4)">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Nearby Needs -->
+            <div class="glass-card no-hover" style="padding:var(--space-5)">
+              <h3 class="chart-title" style="margin-bottom:var(--space-4)">📍 Nearby Needs</h3>
+              <div id="nearby-needs" style="display:flex;flex-direction:column;gap:var(--space-3)">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW: ANALYTICS
+       ============================================================ -->
+  <div class="view" id="view-analytics">
+    <div class="page-content">
+      <div class="container">
+        <div class="page-header flex-between">
+          <div>
+            <h1 class="page-title">Impact Analytics</h1>
+            <p class="page-subtitle">Measure, visualize, and report your community impact</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" onclick="ImpactBridge.analytics.generateReport()">
+              <span class="material-symbols-outlined" style="font-size:16px">summarize</span>
+              AI Report
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="ImpactBridge.analytics.exportData()">
+              <span class="material-symbols-outlined" style="font-size:16px">download</span>
+              Export
+            </button>
+          </div>
+        </div>
+
+        <!-- Impact Stats -->
+        <div class="grid-4 stagger-list" id="analytics-stats">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="analytics-grid" style="margin-top:var(--space-6)">
+          <!-- Volunteer Deployment -->
+          <div class="glass-card dashboard-chart-card no-hover">
+            <div class="chart-header">
+              <div class="chart-title">Volunteer Deployments</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="deployment-chart"></canvas>
+            </div>
+          </div>
+
+          <!-- Response Time -->
+          <div class="glass-card dashboard-chart-card no-hover">
+            <div class="chart-header">
+              <div class="chart-title">Average Response Time</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="response-chart"></canvas>
+            </div>
+          </div>
+
+          <!-- Impact by Region -->
+          <div class="glass-card dashboard-chart-card no-hover">
+            <div class="chart-header">
+              <div class="chart-title">Impact by Region</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="region-chart"></canvas>
+            </div>
+          </div>
+
+          <!-- Skill Coverage -->
+          <div class="glass-card dashboard-chart-card no-hover">
+            <div class="chart-header">
+              <div class="chart-title">Volunteer Skill Coverage</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="skills-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Impact Report -->
+        <div class="glass-card no-hover" style="margin-top:var(--space-6);padding:var(--space-8)" id="ai-report-section">
+          <div class="flex-between" style="margin-bottom:var(--space-6)">
+            <div>
+              <h3 class="chart-title" style="font-size:var(--text-xl)">🤖 AI Impact Report</h3>
+              <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-top:var(--space-1)">Generated by Gemini AI — Updated in real time</p>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="ImpactBridge.analytics.generateReport()">
+              <span class="material-symbols-outlined" style="font-size:16px">refresh</span>
+              Regenerate
+            </button>
+          </div>
+          <div id="ai-report-content" style="font-size:var(--text-sm);line-height:1.8;color:var(--text-secondary)">
+            <div class="skeleton" style="height:20px;width:100%;margin-bottom:12px"></div>
+            <div class="skeleton" style="height:20px;width:90%;margin-bottom:12px"></div>
+            <div class="skeleton" style="height:20px;width:95%;margin-bottom:12px"></div>
+            <div class="skeleton" style="height:20px;width:80%;margin-bottom:12px"></div>
+            <p style="margin-top:24px;color:var(--text-muted);font-style:italic">Click "AI Report" or "Regenerate" to generate a comprehensive impact analysis...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW: LOCATION TRACKER
+       ============================================================ -->
+  <div class="view" id="view-tracker">
+    <div class="page-content">
+      <div class="container">
+        <!-- Header -->
+        <div class="page-header flex-between">
+          <div>
+            <h1 class="page-title" style="display:flex;align-items:center;gap:var(--space-3)">
+              <span class="material-symbols-outlined" style="font-size:32px;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent">location_on</span>
+              Location Tracker
+            </h1>
+            <p class="page-subtitle">Real-time GPS tracking with geofencing, telemetry & fleet management</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:var(--space-4)">
+            <div class="tracker-live-indicator">
+              <div class="live-dot"></div>
+              LIVE TRACKING
+            </div>
+            <div class="tracker-header-stats">
+              <div class="tracker-header-stat">
+                <span class="material-symbols-outlined" style="font-size:14px;color:var(--primary-400)">devices</span>
+                <span class="stat-num" id="tracker-active-count">0</span>
+                <span>/ <span id="tracker-total-count">0</span> devices</span>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm" onclick="LocationTracker.openAddDeviceModal()">
+                <span class="material-symbols-outlined" style="font-size:16px">add_circle</span>
+                Add Device
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tracker Layout -->
+        <div class="tracker-layout">
+          <!-- Sidebar: Device List + Telemetry -->
+          <div class="tracker-sidebar">
+            <!-- Device List -->
+            <div class="tracker-device-list-wrapper">
+              <div class="tracker-device-list-header">
+                <h3>
+                  <span class="material-symbols-outlined" style="font-size:16px;color:var(--primary-400)">devices</span>
+                  Tracked Devices
+                </h3>
+                <span style="font-size:10px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.08em;font-weight:600">Fleet</span>
+              </div>
+              <div class="tracker-device-list" id="tracker-device-list">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Telemetry Panel -->
+            <div class="tracker-telemetry-card">
+              <div id="tracker-telemetry">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div class="tracker-map-wrapper">
+            <div id="tracker-map-canvas"></div>
+
+            <!-- Map Overlay Info -->
+            <div class="tracker-map-overlay-info">
+              <div class="tracker-overlay-badge">
+                <span class="material-symbols-outlined" style="font-size:12px;color:var(--primary-400)">satellite_alt</span>
+                GPS Active
+              </div>
+              <div class="tracker-overlay-badge">
+                <span class="material-symbols-outlined" style="font-size:12px;color:var(--cyan-400)">fence</span>
+                3 Geofences
+              </div>
+            </div>
+
+            <!-- Controls Bar -->
+            <div class="tracker-controls">
+              <button class="btn btn-secondary btn-sm" id="tracker-locate-me" title="My Location">
+                <span class="material-symbols-outlined" style="font-size:16px">my_location</span>
+                My Location
+              </button>
+              <button class="btn btn-secondary btn-sm" id="tracker-center-all" title="Fit All">
+                <span class="material-symbols-outlined" style="font-size:16px">fit_screen</span>
+                Fit All
+              </button>
+              <button class="btn btn-primary btn-sm" id="tracker-toggle-history" title="History Trails">
+                <span class="material-symbols-outlined" style="font-size:16px">route</span>
+                Trails
+              </button>
+              <button class="btn btn-primary btn-sm" id="tracker-toggle-geofence" title="Geofences">
+                <span class="material-symbols-outlined" style="font-size:16px">fence</span>
+                Geofences
+              </button>
+              <button class="btn btn-danger btn-sm" id="tracker-pause" title="Pause Tracking">
+                <span class="material-symbols-outlined" style="font-size:16px">pause</span>
+                Pause
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Device Modal -->
+  <div class="modal-overlay" id="modal-add-device">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">📱 Add Tracked Device</h2>
+        <button class="modal-close" onclick="ImpactBridge.ui.closeModal('modal-add-device')">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+        <div class="form-group">
+          <label class="form-label">Device Name *</label>
+          <input type="text" class="form-input" id="add-device-name" placeholder="e.g., Field Team Gamma" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Device Icon</label>
+          <div class="device-icon-picker" id="device-icon-picker">
+            <div class="device-icon-option selected" data-icon="📱" onclick="LocationTracker._selectIcon(this)">📱</div>
+            <div class="device-icon-option" data-icon="🚐" onclick="LocationTracker._selectIcon(this)">🚐</div>
+            <div class="device-icon-option" data-icon="🏥" onclick="LocationTracker._selectIcon(this)">🏥</div>
+            <div class="device-icon-option" data-icon="🛸" onclick="LocationTracker._selectIcon(this)">🛸</div>
+            <div class="device-icon-option" data-icon="🚤" onclick="LocationTracker._selectIcon(this)">🚤</div>
+            <div class="device-icon-option" data-icon="🚁" onclick="LocationTracker._selectIcon(this)">🚁</div>
+            <div class="device-icon-option" data-icon="🎯" onclick="LocationTracker._selectIcon(this)">🎯</div>
+            <div class="device-icon-option" data-icon="📡" onclick="LocationTracker._selectIcon(this)">📡</div>
+            <div class="device-icon-option" data-icon="🔬" onclick="LocationTracker._selectIcon(this)">🔬</div>
+            <div class="device-icon-option" data-icon="🚀" onclick="LocationTracker._selectIcon(this)">🚀</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tracking Color</label>
+          <div class="device-color-picker" id="device-color-picker">
+            <div class="device-color-option selected" style="background:#10b981" data-color="#10b981" onclick="LocationTracker._selectColor(this)"></div>
+            <div class="device-color-option" style="background:#06b6d4" data-color="#06b6d4" onclick="LocationTracker._selectColor(this)"></div>
+            <div class="device-color-option" style="background:#8b5cf6" data-color="#8b5cf6" onclick="LocationTracker._selectColor(this)"></div>
+            <div class="device-color-option" style="background:#f59e0b" data-color="#f59e0b" onclick="LocationTracker._selectColor(this)"></div>
+            <div class="device-color-option" style="background:#ef4444" data-color="#ef4444" onclick="LocationTracker._selectColor(this)"></div>
+            <div class="device-color-option" style="background:#ec4899" data-color="#ec4899" onclick="LocationTracker._selectColor(this)"></div>
+            <div class="device-color-option" style="background:#22d3ee" data-color="#22d3ee" onclick="LocationTracker._selectColor(this)"></div>
+            <div class="device-color-option" style="background:#a3e635" data-color="#a3e635" onclick="LocationTracker._selectColor(this)"></div>
+          </div>
+        </div>
+        <div class="btn-group" style="margin-top:var(--space-4);justify-content:flex-end">
+          <button class="btn btn-secondary" onclick="ImpactBridge.ui.closeModal('modal-add-device')">Cancel</button>
+          <button class="btn btn-primary" onclick="LocationTracker._submitDevice()">
+            <span class="material-symbols-outlined" style="font-size:16px">add_location_alt</span>
+            Start Tracking
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODALS
+       ============================================================ -->
+
+  <!-- Submit Need Modal -->
+  <div class="modal-overlay" id="modal-submit-need">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">📋 Report Community Need</h2>
+        <button class="modal-close" onclick="ImpactBridge.ui.closeModal('modal-submit-need')">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form id="need-form" onsubmit="ImpactBridge.needs.submitNeed(event)">
+        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+          <div class="form-group">
+            <label class="form-label">Title *</label>
+            <input type="text" class="form-input" id="need-title" placeholder="e.g., Medical supplies needed in rural Odisha" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select class="form-select" id="need-category" required>
+              <option value="">Select category</option>
+              <option value="healthcare">🏥 Healthcare</option>
+              <option value="education">📚 Education</option>
+              <option value="disaster">🌊 Disaster Relief</option>
+              <option value="environment">🌱 Environment</option>
+              <option value="shelter">🏠 Shelter</option>
+              <option value="food">🍚 Food & Water</option>
+              <option value="livelihood">💼 Livelihood</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description *</label>
+            <textarea class="form-textarea" id="need-description" placeholder="Describe the community need in detail..." required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Location *</label>
+              <input type="text" class="form-input" id="need-location" placeholder="e.g., Wayanad, Kerala" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">People Affected</label>
+              <input type="number" class="form-input" id="need-affected" placeholder="e.g., 500">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Priority Level</label>
+              <select class="form-select" id="need-priority">
+                <option value="critical">🔴 Critical</option>
+                <option value="high">🟠 High</option>
+                <option value="medium" selected>🔵 Medium</option>
+                <option value="low">🟢 Low</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Organization</label>
+              <input type="text" class="form-input" id="need-org" placeholder="e.g., Red Cross India">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact Information</label>
+            <input type="text" class="form-input" id="need-contact" placeholder="Phone or email">
+          </div>
+          <div class="btn-group" style="margin-top:var(--space-4);justify-content:flex-end">
+            <button type="button" class="btn btn-secondary" onclick="ImpactBridge.ui.closeModal('modal-submit-need')">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              <span class="material-symbols-outlined" style="font-size:16px">send</span>
+              Submit Need
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- AI Parse Modal -->
+  <div class="modal-overlay" id="modal-ai-parse">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">🤖 AI Report Parser</h2>
+        <button class="modal-close" onclick="ImpactBridge.ui.closeModal('modal-ai-parse')">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+        <p style="font-size:var(--text-sm);color:var(--text-secondary)">
+          Paste a field report, survey data, or describe community needs in natural language. Gemini AI will automatically extract and categorize the information.
+        </p>
+        <div class="form-group">
+          <label class="form-label">Paste Report or Describe Need</label>
+          <textarea class="form-textarea" id="ai-parse-input" style="min-height:160px" placeholder="Example: 'During our field visit to Sundarbans on March 15, we found 200 families affected by cyclone damage. 45 homes completely destroyed, 80 partially damaged. Urgent need for temporary shelters, clean drinking water, and medical supplies. The nearest hospital is 30km away. Children are missing school for 2 weeks now.'"></textarea>
+        </div>
+        <div id="ai-parse-result" class="hidden">
+          <h3 style="font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-3)">✨ AI Extracted Data</h3>
+          <div id="ai-parse-output" class="glass-card no-hover" style="font-size:var(--text-sm);line-height:1.8"></div>
+        </div>
+        <div class="btn-group" style="justify-content:flex-end">
+          <button class="btn btn-secondary" onclick="ImpactBridge.ui.closeModal('modal-ai-parse')">Cancel</button>
+          <button class="btn btn-primary" onclick="ImpactBridge.gemini.parseReport()">
+            <span class="material-symbols-outlined" style="font-size:16px">auto_awesome</span>
+            Analyze with Gemini
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Volunteer Modal -->
+  <div class="modal-overlay" id="modal-register-volunteer">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">🙋 Register as Volunteer</h2>
+        <button class="modal-close" onclick="ImpactBridge.ui.closeModal('modal-register-volunteer')">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form id="volunteer-form" onsubmit="ImpactBridge.volunteer.registerVolunteer(event)">
+        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" class="form-input" id="vol-name" placeholder="e.g., Priya Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" class="form-input" id="vol-email" placeholder="priya@example.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Location *</label>
+              <input type="text" class="form-input" id="vol-location" placeholder="e.g., Mumbai, Maharashtra" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-input" id="vol-phone" placeholder="+91 98765 43210">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Skills (comma-separated) *</label>
+            <input type="text" class="form-input" id="vol-skills" placeholder="e.g., Medical, First Aid, Teaching, Construction" required>
+            <span class="form-hint">Enter skills separated by commas</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Availability</label>
+              <select class="form-select" id="vol-availability">
+                <option value="fulltime">Full Time</option>
+                <option value="parttime" selected>Part Time</option>
+                <option value="weekends">Weekends Only</option>
+                <option value="oncall">On Call</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Experience (years)</label>
+              <input type="number" class="form-input" id="vol-experience" placeholder="e.g., 3" min="0">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Organization (if any)</label>
+            <input type="text" class="form-input" id="vol-org" placeholder="e.g., NSS, Red Cross">
+          </div>
+          <div class="btn-group" style="margin-top:var(--space-4);justify-content:flex-end">
+            <button type="button" class="btn btn-secondary" onclick="ImpactBridge.ui.closeModal('modal-register-volunteer')">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              <span class="material-symbols-outlined" style="font-size:16px">how_to_reg</span>
+              Register
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- AI Match Modal -->
+  <div class="modal-overlay" id="modal-ai-match">
+    <div class="modal" style="max-width:700px">
+      <div class="modal-header">
+        <h2 class="modal-title">🧠 AI Volunteer Matching</h2>
+        <button class="modal-close" onclick="ImpactBridge.ui.closeModal('modal-ai-match')">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+        <p style="font-size:var(--text-sm);color:var(--text-secondary)">
+            Select a community need, and Gemini AI will find the best matching volunteers based on skills, location, and availability.
+        </p>
+        <div class="form-group">
+          <label class="form-label">Select Need to Match</label>
+          <select class="form-select" id="match-need-select">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+        <div id="match-results" class="hidden">
+          <h3 style="font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-3)">✨ Best Matching Volunteers</h3>
+          <div id="match-results-list" style="display:flex;flex-direction:column;gap:var(--space-3)">
+          </div>
+        </div>
+        <div class="btn-group" style="justify-content:flex-end">
+          <button class="btn btn-secondary" onclick="ImpactBridge.ui.closeModal('modal-ai-match')">Close</button>
+          <button class="btn btn-primary" onclick="ImpactBridge.volunteer.runAIMatch()">
+            <span class="material-symbols-outlined" style="font-size:16px">psychology</span>
+            Find Best Matches
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       AI CHAT PANEL
+       ============================================================ -->
+  <div class="ai-chat-panel" id="ai-chat-panel">
+    <div class="ai-chat-header">
+      <div class="ai-chat-header-left">
+        <div class="ai-avatar">✨</div>
+        <div>
+          <div class="ai-chat-title">ImpactBridge AI</div>
+          <div class="ai-chat-subtitle">
+            <span class="status-dot-active" style="display:inline-block;width:6px;height:6px;margin-right:4px"></span>
+            Powered by Gemini
+          </div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="ImpactBridge.gemini.closeChat()" style="width:30px;height:30px">
+        <span class="material-symbols-outlined" style="font-size:16px">close</span>
+      </button>
+    </div>
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="ai-message assistant">
+        <div class="ai-message-bubble">
+          👋 Hi! I'm your ImpactBridge AI assistant powered by Gemini. I can help you:<br><br>
+          • Find volunteers for specific needs<br>
+          • Analyze community data<br>
+          • Parse field reports<br>
+          • Generate impact summaries<br><br>
+          How can I help you today?
+        </div>
+      </div>
+    </div>
+    <div class="ai-chat-input">
+      <input type="text" id="ai-chat-input-field" placeholder="Ask anything about community needs..." onkeydown="if(event.key==='Enter')ImpactBridge.gemini.sendMessage()">
+      <button class="btn btn-primary btn-icon" onclick="ImpactBridge.gemini.sendMessage()" style="padding:var(--space-3)">
+        <span class="material-symbols-outlined" style="font-size:18px">send</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- AI Chat FAB -->
+  <button class="ai-chat-fab" id="ai-chat-fab" onclick="ImpactBridge.gemini.toggleChat()" title="AI Assistant">
+    <span class="material-symbols-outlined" style="color:var(--bg-primary)">smart_toy</span>
+  </button>
+
+  <!-- ============================================================
+       TOAST CONTAINER
+       ============================================================ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="js/utils.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/needs.js"></script>
+  <script src="js/volunteer.js"></script>
+  <script src="js/activity.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/hero3d.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/scrollAnimations.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,841 @@
+/* ============================================================
+   ImpactBridge — Location Tracker Styles
+   Premium real-time GPS tracking interface — Polished v2
+   ============================================================ */
+
+/* ---- Tracker Layout ---- */
+.tracker-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: var(--space-6);
+  height: calc(100vh - var(--nav-height) - 180px);
+  min-height: 600px;
+}
+
+.tracker-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  overflow-y: auto;
+  padding-right: var(--space-2);
+}
+
+.tracker-sidebar::-webkit-scrollbar { width: 4px; }
+.tracker-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 4px; }
+
+.tracker-map-wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-tertiary);
+  box-shadow: 0 0 60px rgba(16, 185, 129, 0.04), var(--shadow-lg);
+}
+
+.tracker-map-wrapper #tracker-map-canvas {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+}
+
+/* ---- Live Indicator ---- */
+.tracker-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(239, 68, 68, 0.10);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  font-size: 10px;
+  font-weight: 700;
+  color: #ef4444;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.tracker-live-indicator .live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: liveDotPulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px #ef444480;
+}
+
+@keyframes liveDotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 8px #ef444480; }
+  50% { transform: scale(0.65); opacity: 0.5; box-shadow: 0 0 4px #ef444440; }
+}
+
+/* ---- Tracker Header Stats ---- */
+.tracker-header-stats {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.tracker-header-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.tracker-header-stat .stat-num {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--primary-400);
+}
+
+/* ---- Device List ---- */
+.tracker-device-list-wrapper {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.tracker-device-list-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  z-index: 1;
+}
+
+.tracker-device-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--glass-border);
+  position: relative;
+}
+
+.tracker-device-list-header h3 {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tracker-device-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.tracker-device-list::-webkit-scrollbar { width: 3px; }
+.tracker-device-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 3px; }
+
+.tracker-device-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px var(--space-5);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-left: 3px solid transparent;
+  position: relative;
+}
+
+.tracker-device-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tracker-device-item.selected {
+  background: rgba(16, 185, 129, 0.05);
+  border-left-color: var(--primary-400);
+}
+
+.tracker-device-item.selected::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 20px;
+  background: var(--primary-400);
+  border-radius: 3px 0 0 3px;
+  opacity: 0.5;
+}
+
+.tracker-device-item + .tracker-device-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.025);
+}
+
+.tracker-device-item-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--device-color, #10b981) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--device-color, #10b981) 20%, transparent);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.tracker-device-item:hover .tracker-device-item-icon {
+  border-color: color-mix(in srgb, var(--device-color, #10b981) 40%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--device-color, #10b981) 15%, transparent);
+}
+
+.tracker-device-item-icon.my-device {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  animation: myDeviceGlow 3s ease-in-out infinite;
+}
+
+@keyframes myDeviceGlow {
+  0%, 100% { box-shadow: 0 0 6px rgba(16, 185, 129, 0.15); }
+  50% { box-shadow: 0 0 14px rgba(16, 185, 129, 0.3); }
+}
+
+.tracker-device-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tracker-device-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.tracker-device-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+/* Signal bars in device list */
+.tracker-signal-mini {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 10px;
+  margin-left: 4px;
+}
+
+.tracker-signal-mini .signal-bar {
+  width: 2.5px;
+  border-radius: 1px;
+  transition: background 0.3s;
+}
+
+.tracker-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tracker-status-dot.active {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b98180;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.tracker-status-dot.inactive {
+  background: #475569;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Device item right section (battery + speed stacked) */
+.tracker-device-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.tracker-device-item-battery {
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.tracker-device-item-speed {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 500;
+}
+
+/* ---- Telemetry Panel ---- */
+.tracker-telemetry-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.tracker-telemetry-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+.telemetry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.telemetry-device-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  letter-spacing: -0.01em;
+}
+
+.telemetry-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.telemetry-status.active {
+  background: rgba(16, 185, 129, 0.10);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.telemetry-status.inactive {
+  background: rgba(100, 116, 139, 0.10);
+  color: #64748b;
+  border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.telemetry-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+/* ---- Speed Gauge ---- */
+.telemetry-gauge-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-4) 0;
+  position: relative;
+}
+
+.telemetry-speed-svg {
+  width: 180px;
+  height: 120px;
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.15));
+}
+
+.gauge-arc-animated {
+  transition: d 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Telemetry Grid ---- */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.telemetry-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px var(--space-4);
+  background: var(--bg-secondary);
+  transition: background var(--transition-fast);
+}
+
+.telemetry-card:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.telemetry-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.telemetry-card:hover .telemetry-card-icon {
+  transform: scale(1.05);
+}
+
+.telemetry-card-icon .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.telemetry-card-data {
+  flex: 1;
+  min-width: 0;
+}
+
+.telemetry-value {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.telemetry-unit {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-left: 3px;
+  letter-spacing: 0;
+}
+
+.telemetry-label {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 1px;
+  font-weight: 600;
+}
+
+/* ---- Coordinates Card ---- */
+.telemetry-coords-card {
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.telemetry-coords-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+}
+
+.telemetry-copy-btn {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 3px 6px;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+}
+
+.telemetry-copy-btn:hover {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.25);
+  color: var(--primary-400);
+  transform: scale(1.05);
+}
+
+.telemetry-coords {
+  padding: 0 var(--space-5) var(--space-3);
+}
+
+.telemetry-coord-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.telemetry-coord-row + .telemetry-coord-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.025);
+}
+
+.telemetry-coord-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.telemetry-coord-value {
+  font-size: 10px;
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Map Markers ---- */
+.tracker-device-marker {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.device-marker-outer {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--device-color, #10b981);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--device-color, #10b981) 40%, transparent),
+              0 2px 8px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: markerFloat 4s ease-in-out infinite;
+  transition: transform 0.3s;
+}
+
+.device-marker-inner {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes markerFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+.device-status-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-primary);
+}
+
+.device-status-dot.active {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b98180;
+}
+
+.device-status-dot.inactive {
+  background: #475569;
+}
+
+/* ---- My Device Marker (special) ---- */
+.my-device-marker {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.my-device-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.45),
+              0 0 40px rgba(16, 185, 129, 0.15);
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  z-index: 3;
+}
+
+.my-device-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(16, 185, 129, 0.5);
+  animation: myPulse 2.5s ease-out infinite;
+  z-index: 1;
+}
+
+.my-device-pulse-ring.delay {
+  animation-delay: 1.25s;
+}
+
+@keyframes myPulse {
+  0% { width: 30px; height: 30px; opacity: 0.6; }
+  100% { width: 90px; height: 90px; opacity: 0; }
+}
+
+.my-device-accuracy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.10) 0%, rgba(16, 185, 129, 0.02) 60%, transparent 100%);
+  border: 1px solid rgba(16, 185, 129, 0.12);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---- Leaflet Popup Override for Tracker ---- */
+.tracker-popup .leaflet-popup-content-wrapper {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(16, 185, 129, 0.06) !important;
+  color: var(--text-primary) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.tracker-popup .leaflet-popup-tip {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.tracker-popup .leaflet-popup-content {
+  margin: 14px 16px !important;
+}
+
+.tracker-popup .leaflet-popup-close-button {
+  color: #64748b !important;
+  font-size: 18px !important;
+  top: 8px !important;
+  right: 10px !important;
+}
+
+.tracker-popup .leaflet-popup-close-button:hover {
+  color: #f8fafc !important;
+}
+
+/* ---- Geofence Tooltip ---- */
+.geofence-tooltip {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: var(--text-primary) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 5px 12px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+  letter-spacing: -0.01em !important;
+}
+
+.geofence-tooltip::before {
+  border-top-color: rgba(15, 23, 42, 0.92) !important;
+}
+
+/* ---- Control Buttons Bar ---- */
+.tracker-controls {
+  position: absolute;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-2);
+  padding: 6px;
+  background: rgba(10, 15, 30, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(16, 185, 129, 0.04);
+  z-index: 10;
+}
+
+.tracker-controls .btn {
+  padding: 6px 14px;
+  font-size: 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* ---- Map Overlay Info ---- */
+.tracker-map-overlay-info {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.tracker-overlay-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  background: rgba(10, 15, 30, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* ---- Add Device Modal Styles ---- */
+.device-icon-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.device-icon-option {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--glass-bg);
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.device-icon-option:hover {
+  background: var(--glass-bg-hover);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.device-icon-option.selected {
+  border-color: var(--primary-400);
+  background: rgba(16, 185, 129, 0.10);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.15);
+  transform: translateY(-1px);
+}
+
+.device-color-picker {
+  display: flex;
+  gap: 10px;
+}
+
+.device-color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+.device-color-option:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px currentColor;
+}
+
+.device-color-option.selected {
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.15);
+  box-shadow: 0 0 16px currentColor;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .tracker-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .tracker-sidebar {
+    order: 2;
+  }
+
+  .tracker-map-wrapper {
+    height: 500px;
+    order: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .tracker-map-wrapper {
+    height: 400px;
+  }
+
+  .tracker-controls {
+    bottom: var(--space-3);
+    padding: 4px;
+    gap: 3px;
+  }
+
+  .tracker-controls .btn {
+    padding: 5px 10px;
+    font-size: 9px;
+  }
+
+  .telemetry-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tracker-header-stats {
+    display: none;
+  }
+}
