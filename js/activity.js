@@ -1,4 +1,3 @@
-
 const ActivityLog = {
   activities: [],
   maxEntries: 50,

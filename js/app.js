@@ -1,4 +1,3 @@
-
 const ImpactBridge = {
   currentView: 'home',
   

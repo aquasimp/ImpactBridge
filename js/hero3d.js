@@ -1,4 +1,3 @@
-
 const Hero3D = {
   scene: null,
   camera: null,

@@ -1,4 +1,3 @@
-
 const Auth = {
   currentUser: null,
 

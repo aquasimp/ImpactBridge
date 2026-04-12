@@ -1,4 +1,3 @@
-
 const FirebaseConfig = {
   // Set to true and fill in your Firebase config to enable live mode
   LIVE_MODE: false,

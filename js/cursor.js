@@ -1,4 +1,3 @@
-
 const CustomCursor = {
   dot: null,
   ring: null,

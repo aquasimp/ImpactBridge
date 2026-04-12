@@ -1,4 +1,3 @@
-
 const NeedsManager = {
   needs: [],
   currentFilter: 'all',

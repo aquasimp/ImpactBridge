@@ -1,4 +1,3 @@
-
 const ScrollAnimations = {
   triggers: [],
   initialized: false,

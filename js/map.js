@@ -1,4 +1,3 @@
-
 const MapModule = {
   map: null,
   needMarkers: [],
