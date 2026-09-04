@@ -12,7 +12,14 @@ test.describe('ImpactBridge Application & Security Tests', () => {
     await expect(brand).toBeVisible();
     await expect(brand).toContainText('ImpactBridge');
 
-    // Verify nav links
+    // Verify hero CTA button exists on landing page
+    const heroCta = page.locator('.at-hero-cta a[href="#dashboard"]');
+    await expect(heroCta).toBeVisible();
+
+    // Navigating into the application reveals the full app navigation bar
+    await heroCta.click();
+    await expect(page).toHaveURL(/#dashboard/);
+
     await expect(page.locator('a[data-view="dashboard"]')).toBeVisible();
     await expect(page.locator('a[data-view="needs"]')).toBeVisible();
     await expect(page.locator('a[data-view="volunteers"]')).toBeVisible();
@@ -34,8 +41,8 @@ test.describe('ImpactBridge Application & Security Tests', () => {
     await page.goto('/#needs');
 
     // Verify needs container renders items
-    const needsContainer = page.locator('#needs-grid, .needs-container, #needs-list');
-    await expect(needsContainer).toBeVisible();
+    const needsGrid = page.locator('#needs-grid');
+    await expect(needsGrid).toBeVisible();
 
     // Verify need cards exist in demo mode
     const needCards = page.locator('.need-card');
@@ -44,9 +51,10 @@ test.describe('ImpactBridge Application & Security Tests', () => {
     const cardCount = await needCards.count();
     expect(cardCount).toBeGreaterThanOrEqual(3);
 
-    // Verify card content structure
+    // Verify card title and category badge structure
     const firstCard = needCards.first();
-    await expect(firstCard.locator('.need-title, h3, h4').first()).toBeVisible();
+    await expect(firstCard.locator('.need-card-title')).toBeVisible();
+    await expect(firstCard.locator('.need-card-header .badge')).toBeVisible();
   });
 
   test('volunteer section renders matching cards and skills badges', async ({ page }) => {
@@ -60,6 +68,9 @@ test.describe('ImpactBridge Application & Security Tests', () => {
 
     const count = await volunteerCards.count();
     expect(count).toBeGreaterThanOrEqual(1);
+
+    const firstVol = volunteerCards.first();
+    await expect(firstVol.locator('.volunteer-name')).toBeVisible();
   });
 
   test('XSS sanitization prevents execution of injected script tags', async ({ page }) => {
@@ -68,9 +79,9 @@ test.describe('ImpactBridge Application & Security Tests', () => {
     // Verify GeminiAI.escapeHtml properly escapes malicious HTML payloads
     const testResult = await page.evaluate(() => {
       // @ts-expect-error global object access in browser context
-      if (typeof window.GeminiAI !== 'undefined' && typeof window.GeminiAI.escapeHtml === 'function') {
-        // @ts-expect-error global object access in browser context
-        const escaped = window.GeminiAI.escapeHtml('<script>window.__xss_compromised = true;</script>');
+      const ai = window.GeminiAI || (window.ImpactBridge && window.ImpactBridge.gemini);
+      if (ai && typeof ai.escapeHtml === 'function') {
+        const escaped = ai.escapeHtml('<script>window.__xss_compromised = true;</script>');
 
         // Inject escaped content into test container
         const container = document.createElement('div');
@@ -89,5 +100,22 @@ test.describe('ImpactBridge Application & Security Tests', () => {
     expect(testResult.escaped).toContain('&lt;script&gt;');
     expect(testResult.escaped).not.toContain('<script>');
     expect(testResult.compromised).toBe(false);
+  });
+
+  test('modal dialog accessibility supports ESC key dismissal and aria attributes', async ({ page }) => {
+    await page.goto('/#volunteers');
+
+    // Open volunteer registration modal
+    const registerBtn = page.getByRole('button', { name: /register volunteer/i });
+    await expect(registerBtn).toBeVisible();
+    await registerBtn.click();
+
+    const modal = page.locator('#modal-register-volunteer');
+    await expect(modal).toHaveClass(/active/);
+    await expect(modal).toHaveAttribute('aria-modal', 'true');
+
+    // Dismiss with Escape key
+    await page.keyboard.press('Escape');
+    await expect(modal).not.toHaveClass(/active/);
   });
 });

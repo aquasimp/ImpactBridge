@@ -173,10 +173,19 @@ const ImpactBridge = {
       const modal = document.getElementById(id);
       if (modal) {
         modal.classList.add('active');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('role', 'dialog');
         document.body.style.overflow = 'hidden';
         modal.addEventListener('click', (e) => {
           if (e.target === modal) this.closeModal(id);
         });
+        const handleKeyDown = (e) => {
+          if (e.key === 'Escape') {
+            this.closeModal(id);
+            document.removeEventListener('keydown', handleKeyDown);
+          }
+        };
+        document.addEventListener('keydown', handleKeyDown);
       }
     },
 
