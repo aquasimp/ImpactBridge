@@ -100,7 +100,7 @@
 ```bash
 # Clone the repository
 git clone https://github.com/aquasimp/ImpactBridge.git
-cd impactbridge
+cd ImpactBridge
 
 # Option 1: Use any HTTP server
 npx serve . -l 3000
@@ -140,23 +140,31 @@ The app runs in **Demo Mode** by default with realistic sample data from across 
 ## 📂 Project Structure
 
 ```
-impactbridge/
-├── index.html                 # Main SPA shell (all views)
+ImpactBridge/
+├── index.html                 # Main SPA shell (all views & modal dialogs)
 ├── styles/
-│   ├── main.css              # Design system + glassmorphism (1200+ lines)
-│   └── animations.css        # Micro-animations library
+│   ├── main.css              # Design system, theme tokens & glassmorphism
+│   ├── animations.css        # Micro-animations and transition library
+│   ├── landing.css           # Landing view and hero styling
+│   └── tracker.css           # Resource tracking & activity styling
 ├── js/
 │   ├── app.js                # SPA router + main controller
 │   ├── utils.js              # Utility functions + helpers
-│   ├── firebase-config.js    # Firebase initialization
+│   ├── firebase-config.js    # Firebase initialization & live mode toggle
 │   ├── auth.js               # Authentication module
-│   ├── gemini.js             # Gemini AI integration
+│   ├── gemini.js             # Gemini AI integration & report parsing
 │   ├── needs.js              # Community need management (12 demo entries)
 │   ├── volunteer.js          # Volunteer management (12 demo profiles)
+│   ├── tracker.js            # Live resource tracking and allocation
 │   ├── map.js                # Canvas-based India map visualization
 │   ├── dashboard.js          # Dashboard stats + charts
-│   └── analytics.js          # Impact analytics + AI reports
-└── README.md                 # This file
+│   ├── analytics.js          # Impact analytics + AI reports
+│   ├── activity.js           # Real-time activity logging stream
+│   ├── cursor.js             # Custom cursor effects & interaction
+│   ├── hero3d.js             # 3D interactive hero canvas
+│   └── scrollAnimations.js   # Scroll-driven reveal animations
+├── LICENSE                   # MIT License
+└── README.md                 # Project documentation
 ```
 
 ---
@@ -231,7 +239,7 @@ graph TB
 
 ## 📄 License
 
-This project is built for the [Google Solution Challenge 2026](https://developers.google.com/community/gdsc-solution-challenge).
+This project is licensed under the [MIT License](LICENSE). Built for the [Google Solution Challenge 2026](https://developers.google.com/community/gdsc-solution-challenge).
 
 ---
 

@@ -210,7 +210,8 @@ RULES:
   },
 
   formatMarkdown(text) {
-    return text
+    const safeText = this.escapeHtml(text || '');
+    return safeText
       .replace(/## (.*)/g, '<h3 style="font-size:14px;font-weight:700;margin:12px 0 8px;color:var(--text-primary)">$1</h3>')
       .replace(/### (.*)/g, '<h4 style="font-size:13px;font-weight:600;margin:10px 0 6px;color:var(--text-primary)">$1</h4>')
       .replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--text-primary)">$1</strong>')
