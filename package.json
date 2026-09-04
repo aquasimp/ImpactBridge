@@ -1,0 +1,12 @@
+{
+  "name": "impactbridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smart Resource Allocation for Social Impact — Google Solution Challenge 2026",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0"
+  }
+}

@@ -3,6 +3,7 @@
 > **Google Solution Challenge 2026 — Track: Smart Resource Allocation**  
 > Data-Driven Volunteer Coordination for Social Impact
 
+[![CI](https://github.com/aquasimp/ImpactBridge/actions/workflows/ci.yml/badge.svg)](https://github.com/aquasimp/ImpactBridge/actions/workflows/ci.yml)
 [![Built with Google](https://img.shields.io/badge/Built%20with-Google%20Technologies-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://developers.google.com)
 [![Gemini AI](https://img.shields.io/badge/Powered%20by-Gemini%20AI-8B5CF6?style=for-the-badge)](https://ai.google.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com)
@@ -234,6 +235,23 @@ graph TB
 - **Material Symbols** — Google's icon system for consistency
 - **Responsive** — Mobile-first CSS with breakpoints at 480/768/1200px
 - **Micro-animations** — Scroll reveals, hover effects, toast notifications
+
+## 🧪 Automated Testing & Security Verification
+
+ImpactBridge includes automated browser end-to-end tests powered by Playwright and executed on every push via GitHub Actions:
+
+- **Router Validation**: Tests hash-based view switching across all 7 views (`#home`, `#dashboard`, `#needs`, `#volunteers`, `#map`, `#analytics`, `#tracker`).
+- **Needs Rendering**: Validates active crisis feeds, category tags, affected counts, and priority markers.
+- **Volunteer Matching**: Confirms volunteer card loading and skill badges.
+- **XSS Sanitization**: Asserts that `GeminiAI.escapeHtml` escapes malicious payloads (e.g. `<script>`) to prevent code execution.
+
+```bash
+# Install dependencies
+npm install
+
+# Run automated tests
+npm test
+```
 
 ---
 
